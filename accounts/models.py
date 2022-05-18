@@ -1,4 +1,4 @@
-import email
+
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
@@ -21,7 +21,7 @@ class MyAccountManager(BaseUserManager):
         )   
 
         user.set_password(password)
-        user.save(using=self.db)
+        user.save(using=self._db)
         return user
     
     # for creating superuser
