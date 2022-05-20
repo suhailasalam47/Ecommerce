@@ -1,13 +1,17 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, \
-      BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager,\
+     PermissionsMixin
 
 # Create your models here.
 
 class MyAccountManager(BaseUserManager):
     # for creating normal user
-    def create_user(self, first_name, last_name,
-                    username, email, password=None):
+    def create_user(self, 
+                    first_name, 
+                    last_name, 
+                    username, 
+                    email, 
+                    password=None):
         if not email:
             raise ValueError('User must have an email address')
 
@@ -25,8 +29,12 @@ class MyAccountManager(BaseUserManager):
         return user
     
     # for creating superuser
-    def create_superuser(self, first_name, last_name,
-                         username, email, password):
+    def create_superuser(self, 
+                         first_name, 
+                         last_name,
+                         username, 
+                         email, 
+                         password):
         user = self.create_user(
             email=self.normalize_email(email),
             username= username,
@@ -43,18 +51,18 @@ class MyAccountManager(BaseUserManager):
 
 
 class Account(AbstractBaseUser, PermissionsMixin):
-    first_name  = models.CharField(max_length=50)
-    last_name   = models.CharField(max_length=50)
-    username    = models.CharField(max_length=50, unique=True)
-    email       = models.EmailField(max_length=100, unique=True)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    username = models.CharField(max_length=50, unique=True)
+    email = models.EmailField(max_length=100, unique=True)
     phone_number = models.CharField(max_length=50)
 
     #required
-    date_joined  = models.DateTimeField(auto_now_add=True)
-    last_login   = models.DateTimeField(auto_now_add=True)
-    is_admin     = models.BooleanField(default=False)
-    is_staff     = models.BooleanField(default=False)
-    is_active    = models.BooleanField(default=False)
+    date_joined = models.DateTimeField(auto_now_add=True)
+    last_login = models.DateTimeField(auto_now_add=True)
+    is_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False)
     is_superadmin = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'

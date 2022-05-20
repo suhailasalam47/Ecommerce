@@ -147,7 +147,7 @@
                     
                         </div> <!-- price-wrap.// -->
                     </div>
-                    <a href="{% url 'add_cart' p.id %}" class="btn btn-block btn-primary">Add to cart </a>
+                    <a href="{{ p.get_url }}" class="btn btn-block btn-primary">View Details </a>
                 </figcaption>
             </figure>
         </div> <!-- col.// -->
