@@ -38,18 +38,37 @@ def add_cart(request, product_id):
     except Cart.DoesNotExist:
         cart = Cart.objects.create(cart_id=_cart_id(request))
     cart.save()
-
-    try:
+    
+    is_cart_item_exist = CartItem.objects.filter(product=product, cart=cart).exists()
+    if is_cart_item_exist:
         # combining products and cart
-        cart_item = CartItem.objects.get(product=product, cart=cart)
-        if len(product_variation) > 0:
-            cart_item.variation.clear()
-            for item in product_variation:
-                cart_item.variation.add(item)
+        cart_item = CartItem.objects.filter(product=product, cart=cart)
+        
+        ex_var_list = []
+        id = []
+        for item in cart_item:
+            existing_variation = item.variation.all()
+            ex_var_list.append(list(existing_variation))
+            id.append(item.id)
 
-        cart_item.quantity += 1
-        cart_item.save()
-    except CartItem.DoesNotExist:
+        print(ex_var_list)    
+
+        
+        if product_variation in ex_var_list:
+            # increase the cart item quantity
+            index = ex_var_list.index(product_variation)
+            item_id = id[index]
+            item = CartItem.objects.get(product=product, id=item_id)
+            item.quantity += 1
+            cart_item.save()
+        else:
+            if len(product_variation) > 0:
+                cart_item.variation.clear()
+                for item in product_variation:
+                    cart_item.variation.add(item)
+
+                cart_item.save()
+    else:
         cart_item = CartItem.objects.create(
             product=product,
             quantity=1,
