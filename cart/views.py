@@ -28,6 +28,7 @@ def add_cart(request, product_id):
                     variation_value__iexact=value,
                 )
                 product_variation.append(variation)
+                print(product_variation)
             except:
                 pass
 
@@ -60,14 +61,14 @@ def add_cart(request, product_id):
             item_id = id[index]
             item = CartItem.objects.get(product=product, id=item_id)
             item.quantity += 1
-            cart_item.save()
+            item.save()
         else:
+            # create a new cart item
+            item = CartItem.objects.create(product=product, quantity=1, cart=cart)
             if len(product_variation) > 0:
-                cart_item.variation.clear()
-                for item in product_variation:
-                    cart_item.variation.add(item)
-
-                cart_item.save()
+                item.variation.clear()
+                item.variation.add(*product_variation)
+            item.save()
     else:
         cart_item = CartItem.objects.create(
             product=product,
@@ -76,8 +77,7 @@ def add_cart(request, product_id):
         )
         if len(product_variation) > 0:
             cart_item.variation.clear()
-            for item in product_variation:
-                cart_item.variation.add(item)
+            cart_item.variation.add(*product_variation)
         cart_item.save()
     return redirect("cart")
 
