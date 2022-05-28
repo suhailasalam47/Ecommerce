@@ -1,4 +1,4 @@
-from django.contrib import messages
+from django.contrib import messages, auth
 from django.shortcuts import render, redirect
 from .forms import RegistrationForm
 from .models import Account
@@ -25,6 +25,7 @@ def register(request):
             )
             user.phone_number = phone_number
             user.save()
+            print(email, password)
             messages.success(request, 'Registration Successful')
             return redirect('register')
     else:
@@ -37,6 +38,20 @@ def register(request):
 
 
 def login(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+        
+        user = auth.authenticate(email=email , password=password)
+        print(email, password)
+        print(user)
+        if user is not None:
+            auth.login(request, user)
+            # messages.success(request, "Login successful")
+            return redirect('home')
+        else:
+            messages.error(request, "Invalid credential")
+            return redirect('login')    
     return render(request, 'accounts/login.html')
 
 
