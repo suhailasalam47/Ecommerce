@@ -14,6 +14,7 @@ class ProductAdmin(admin.ModelAdmin):
         "is_available",
     )
     prepopulated_fields = {"slug": ("product_name",)}
+    search_fields= ['product_name',]
 
 
 class VariationAdmin(admin.ModelAdmin):
