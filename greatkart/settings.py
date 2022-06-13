@@ -151,3 +151,9 @@ MESSAGE_TAGS = {
     messages.INFO: 'Danger',
 }
 
+# SMTP CONFIGURATION
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'appdemo5979@gmail.com'
+EMAIL_HOST_PASSWORD = 'ukimpnwxuzxtxtrf'
+EMAIL_USE_TLS = True
