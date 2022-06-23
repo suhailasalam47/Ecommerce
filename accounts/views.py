@@ -71,19 +71,39 @@ def login(request):
         
         if user is not None:
             try:
-                print("entering in try block")
                 cart = Cart.objects.get(cart_id=_cart_id(request))
                 is_cart_item_exist = CartItem.objects.filter(cart=cart).exists()
                 print(is_cart_item_exist)
                 if is_cart_item_exist:
                     cart_item = CartItem.objects.filter(cart=cart)
-                    print(cart_item)
-
+                    
+                    product_variation = []
                     for item in cart_item:
-                        item.user = user
-                        item.save()
+                        variation = item.variation.all()
+                        product_variation.append(list(variation))
+
+                    cart_item = CartItem.objects.filter(user=user)
+                    ex_var_list = []
+                    id = []
+                    for item in cart_item:
+                        existing_variation = item.variation.all()
+                        ex_var_list.append(list(existing_variation))
+                        id.append(item.id)    
+
+                    for i in product_variation:
+                        if i in ex_var_list:
+                            index = ex_var_list.index(i)
+                            item_id = id[index]
+                            item = CartItem.objects.get(id=item_id)
+                            item.quantity += 1
+                            item.user = user
+                            item.save()
+                        else:
+                            cart_item = CartItem.objects.filter(cart=cart)
+                            for item in cart_item:
+                                item.user = user
+                                item.save()
             except:
-                print("entering in except block")
                 pass
 
             auth.login(request, user)
