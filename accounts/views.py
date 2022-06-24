@@ -15,6 +15,7 @@ from django.core.mail import EmailMessage
 
 from cart.views import _cart_id
 from cart.models import Cart, CartItem
+import requests
 # Create your views here.
 
 def register(request):
@@ -108,7 +109,17 @@ def login(request):
 
             auth.login(request, user)
             messages.success(request, "Login successful")
-            return redirect('dashboard')
+
+            url = request.META.get('HTTP_REFERER')
+            try:
+                query = requests.utils.urlparse(url).query
+                params = dict(x.split('=') for x in query.split('&'))
+                if 'next' in params:
+                    next_page = params['next']
+                    return redirect(next_page)
+            except:
+                return redirect('dashboard')
+                
         else:
             messages.error(request, "Invalid credential")
             return redirect('login')    
@@ -203,4 +214,4 @@ def reset_password(request):
             messages.error(request,"Password not matching!")
             return redirect('reset_password')    
     else:
-        return render(request, 'accounts/reset_password.html')      
+        return render(request, 'accounts/reset_password.html') 
