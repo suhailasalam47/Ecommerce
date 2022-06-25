@@ -14,7 +14,8 @@
     <div class="card">
         <div class="card-body">
                 <h4 class="card-title mb-4">Billing Address</h4>
-                <form action="">
+                <form action="{% url 'place_order' %}" method="post">
+                    {% csrf_token %}
                     <div class="form-row">
                         <div class="col form-group">
                             <label for="">First Name</label>
@@ -38,11 +39,11 @@
                     <div class="form-row">
                         <div class="col form-group">
                             <label for="">Address Line 1</label>
-                            <input type="text" name="address1" class="form-control">
+                            <input type="text" name="address_line_1" class="form-control">
                         </div>
                         <div class="col form-group">
                             <label for="">Address Line 2</label>
-                            <input type="text" name="address2" class="form-control">
+                            <input type="text" name="address_line_2" class="form-control">
                         </div>
                     </div>
                     <div class="form-row">
@@ -54,12 +55,16 @@
                             <label for="">State</label>
                             <input type="text" name="state" class="form-control">
                         </div>
+                        <div class="col form-group">
+                            <label for="">Country</label>
+                            <input type="text" name="country" class="form-control">
+                        </div>
                     </div>
                     <div class="form-row">
                         <label for="">Order Note</label>
                         <textarea name="order_note" rows="2" class="form-control"></textarea>                  
                      </div>
-                </form>
+                
         </div>
     
     </div> <!-- card.// -->
@@ -112,15 +117,19 @@
                     </tbody>
                     </table>
                
-                <a href="./place-order.html" class="btn btn-primary btn-block"> Place Order </a>
+                <button type="submit" class="btn btn-primary btn-block"> Place Order </button>
                 <a href="{% url 'store' %}" class="btn btn-light btn-block">Continue Shopping</a>
             </div> <!-- card-body.// -->
             </div> <!-- card.// -->
+        </form>
     
     </aside> <!-- col.// -->
     
     
     </div> <!-- row.// -->
+    <div>
+        {% include 'includes/alerts.html' %}
+    </div>
    
     <!-- ============================ COMPONENT 1 END .// ================================= -->
     
