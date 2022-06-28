@@ -6,6 +6,9 @@ from .models import Order, OrderProduct, Payment
 from .forms import OrderForm
 from django.contrib import messages
 import json
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+
 
 # Create your views here.
 def payments(requset):
@@ -55,6 +58,19 @@ def payments(requset):
 
     # Clear cart items after successful order
     CartItem.objects.filter(user=requset.user).delete()
+
+    # Send successful order email to user
+    mail_subject = "Thank you for your order!"
+    message = render_to_string(
+        "orders/order_successful_email.html",
+            {
+                "user": requset.user,
+                'order': order,
+            },
+        )
+    to_email = requset.user.email
+    send_email = EmailMessage(mail_subject, message, to=[to_email])
+    send_email.send()
 
     return render(requset, "orders/payments.html")
 
