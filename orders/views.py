@@ -8,6 +8,7 @@ from django.contrib import messages
 import json
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
+from django.http import JsonResponse
 
 
 # Create your views here.
@@ -72,7 +73,11 @@ def payments(requset):
     send_email = EmailMessage(mail_subject, message, to=[to_email])
     send_email.send()
 
-    return render(requset, "orders/payments.html")
+    data = {
+        'order_number':order.order_number,
+        'transID' : payment.Payment_id
+    }
+    return JsonResponse(data)
 
 
 def place_order(request, total=0, quantity=0):
@@ -137,3 +142,7 @@ def place_order(request, total=0, quantity=0):
             return render(request, "orders/payments.html", context)
         else:
             return redirect("checkout")
+
+
+def order_success(requset):
+    return render(requset, "orders/order_success.html")
