@@ -40,6 +40,12 @@ def payments(requset):
         order_product.ordered = True
         order_product.save()
 
+        # Set variation of item
+        cart_item = CartItem.objects.get(id=item.id)
+        product_variation = cart_item.variation.all()
+        order_product = OrderProduct.objects.get(id=order_product.id)
+        order_product.variation.set(product_variation)
+        order_product.save()
 
     return render(requset, "orders/payments.html")
 
