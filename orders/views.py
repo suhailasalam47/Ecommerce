@@ -1,6 +1,7 @@
 import datetime
 from django.shortcuts import render, redirect
 from cart.models import CartItem
+from store.models import Product
 from .models import Order, OrderProduct, Payment
 from .forms import OrderForm
 from django.contrib import messages
@@ -46,6 +47,14 @@ def payments(requset):
         order_product = OrderProduct.objects.get(id=order_product.id)
         order_product.variation.set(product_variation)
         order_product.save()
+
+        # Decrease the quantity of sold product
+        product = Product.objects.get(id=item.product_id)
+        product.stock -= item.quantity
+        product.save()
+
+    # Clear cart items after successful order
+    CartItem.objects.filter(user=requset.user).delete()
 
     return render(requset, "orders/payments.html")
 
