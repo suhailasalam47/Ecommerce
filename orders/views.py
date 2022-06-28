@@ -1,7 +1,7 @@
 import datetime
 from django.shortcuts import render, redirect
 from cart.models import CartItem
-from .models import Order, Payment
+from .models import Order, OrderProduct, Payment
 from .forms import OrderForm
 from django.contrib import messages
 import json
@@ -25,6 +25,22 @@ def payments(requset):
     order.Payment = payment
     order.is_ordered = True
     order.save()
+
+    # After payment move ordered items into orderProduct table
+    cart_items = CartItem.objects.filter(user=requset.user)
+
+    for item in cart_items:
+        order_product = OrderProduct()
+        order_product.order_id = order.id
+        order_product.payment = payment
+        order_product.user = requset.user
+        order_product.product_id = item.product.id
+        order_product.quantity = item.quantity
+        order_product.product_price = item.product.price
+        order_product.ordered = True
+        order_product.save()
+
+
     return render(requset, "orders/payments.html")
 
 

@@ -158,3 +158,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'appdemo5979@gmail.com'
 EMAIL_HOST_PASSWORD = 'ukimpnwxuzxtxtrf'
 EMAIL_USE_TLS = True
+
+# RAZORPAY KEYS
+RAZOR_KEY_ID = 'rzp_test_GQEAdvInv2dymG'
+RAZOR_KEY_SECRET = 'TCqEHubk2H838kthL3aFW0Zi'
