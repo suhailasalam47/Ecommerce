@@ -145,4 +145,26 @@ def place_order(request, total=0, quantity=0):
 
 
 def order_success(requset):
-    return render(requset, "orders/order_success.html")
+    order_number = requset.GET.get('order_number')
+    transID = requset.GET.get('payment_id')
+
+    try:
+        order = Order.objects.get(order_number=order_number, is_ordered=True)
+        order_product = OrderProduct.objects.filter(order_id=order.id)
+        payment = Payment.objects.get(Payment_id = transID)
+
+        sub_total = 0
+        for i in order_product:
+            sub_total += i.product_price * i.quantity
+
+        context = {
+            'order' : order,
+            'order_product' : order_product,
+            'order_number' : order.order_number,
+            'transID' : payment.Payment_id,
+            'payment' : payment,
+            'sub_total' : sub_total
+        }
+        return render(requset, "orders/order_success.html", context)
+    except(Payment.DoesNotExist, Order.DoesNotExist):
+        return redirect('home')
