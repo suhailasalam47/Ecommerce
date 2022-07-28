@@ -119,7 +119,8 @@
                 <p class="text-center mb-3">
                     <img src="{% static './images/misc/payments.png' %}" height="26" alt="image not supported">
                 </p>
-                <form action="{% url 'cash_on_delivery' %}">
+                <form action="{% url 'cash_on_delivery' %}" method="post">
+                  {% csrf_token %}
                 <div class="btn_container">
                   <!-- Payment Button -->
                   <button class="btn btn-dark" style="width: 340px;">Cash on Delivery</button>
