@@ -11,33 +11,16 @@ from django.template.loader import render_to_string
 from django.http import JsonResponse
 
 
-def payments(requset):
-    body = json.loads(requset.body)
-    order = Order.objects.get(
-        user=requset.user, is_ordered=False, order_number=body["orderID"]
-    )
-
-    payment = Payment(
-        user=requset.user,
-        Payment_id=body["transID"],
-        Payment_method=body["payment_method"],
-        amount_paid=order.order_total,
-        status=body["status"],
-    )
-    payment.save()
-
-    order.Payment = payment
-    order.is_ordered = True
-    order.save()
-
+def order_completed(request, order, payment):
     # After payment move ordered items into orderProduct table
-    cart_items = CartItem.objects.filter(user=requset.user)
+    user = request
+    cart_items = CartItem.objects.filter(user=user)
 
     for item in cart_items:
         order_product = OrderProduct()
         order_product.order_id = order.id
         order_product.payment = payment
-        order_product.user = requset.user
+        order_product.user = user
         order_product.product_id = item.product.id
         order_product.quantity = item.quantity
         order_product.product_price = item.product.price
@@ -57,24 +40,46 @@ def payments(requset):
         product.save()
 
     # Clear cart items after successful order
-    CartItem.objects.filter(user=requset.user).delete()
+    CartItem.objects.filter(user=user).delete()
 
     # Send successful order email to user
     mail_subject = "Thank you for your order!"
     message = render_to_string(
         "orders/order_successful_email.html",
-            {
-                "user": requset.user,
-                'order': order,
-            },
-        )
-    to_email = requset.user.email
+        {
+            "user": user,
+            "order": order,
+        },
+    )
+    to_email = user.email
     send_email = EmailMessage(mail_subject, message, to=[to_email])
     send_email.send()
 
+
+def payments(request):
+    user = request.user
+    body = json.loads(request.body)
+    order = Order.objects.get(
+        user=request.user, is_ordered=False, order_number=body["orderID"]
+    )
+
+    payment = Payment(
+        user=request.user,
+        Payment_id=body["transID"],
+        Payment_method=body["payment_method"],
+        amount_paid=order.order_total,
+        status=body["status"],
+    )
+    payment.save()
+
+    order.Payment = payment
+    order.is_ordered = True
+    order.save()
+    order_completed(user, order, payment)
+
     data = {
-        'order_number':order.order_number,
-        'transID' : payment.Payment_id
+        "order_number": order.order_number,
+        "transID": payment.Payment_id,
     }
     return JsonResponse(data)
 
@@ -132,8 +137,8 @@ def place_order(request, total=0, quantity=0):
                 order_number=order_number,
             )
             if order:
-                print("inside if--------",order.order_number)
-                request.session["order_id"]= order_number
+                print("inside if--------", order.order_number)
+                request.session["order_id"] = order_number
 
             context = {
                 "order": order,
@@ -148,43 +153,43 @@ def place_order(request, total=0, quantity=0):
 
 
 def order_success(requset):
-    order_number = requset.GET.get('order_number')
-    transID = requset.GET.get('payment_id')
+    order_number = requset.GET.get("order_number")
+    transID = requset.GET.get("payment_id")
 
     try:
-        order = Order.objects.get(order_number=order_number, is_ordered=True)
+        order = Order.objects.get(
+            order_number=order_number, is_ordered=True
+        )
         order_product = OrderProduct.objects.filter(order_id=order.id)
-        payment = Payment.objects.get(Payment_id = transID)
+        payment = Payment.objects.get(Payment_id=transID)
 
         sub_total = 0
         for i in order_product:
             sub_total += i.product_price * i.quantity
 
         context = {
-            'order' : order,
-            'order_product' : order_product,
-            'order_number' : order.order_number,
-            'transID' : payment.Payment_id,
-            'payment' : payment,
-            'sub_total' : sub_total
+            "order": order,
+            "order_product": order_product,
+            "order_number": order.order_number,
+            "transID": payment.Payment_id,
+            "payment": payment,
+            "sub_total": sub_total,
         }
         return render(requset, "orders/order_success.html", context)
-    except(Payment.DoesNotExist, Order.DoesNotExist):
-        return redirect('home')
+    except (Payment.DoesNotExist, Order.DoesNotExist):
+        return redirect("home")
 
 
 def cash_on_delivery(requset):
-    if requset.method == 'POST':
+    if requset.method == "POST":
         try:
             order_id = requset.session["order_id"]
         except:
             pass
         order = Order.objects.get(
-            user=requset.user, 
-            is_ordered=False,
-            order_number=order_id
+            user=requset.user, is_ordered=False, order_number=order_id
         )
-        user= requset.user
+        user = requset.user
 
         payment = Payment(
             user=user,
@@ -197,5 +202,10 @@ def cash_on_delivery(requset):
 
         order.Payment = payment
         order.is_ordered = True
-        order.save()    
-    return render(requset, "orders/order_success.html")
+        order.save()
+        order_completed(user, order=order, payment=payment)
+        context = {
+            "order": order,
+            "payment": payment,
+        }
+    return render(requset, "orders/order_success.html", context)
