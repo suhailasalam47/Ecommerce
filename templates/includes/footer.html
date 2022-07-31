@@ -1,7 +1,33 @@
+{% load static %}
+<div class="footer-bottom">
+	<div class="container">
+		<ul class="footer-bottom-top">
+			<li><a href="#"><img src="{% static 'images/f1.png' %}" class="img-responsive" alt=""></a></li>
+			<li><a href="#"><img src="{% static 'images/f2.png' %}" class="img-responsive" alt=""></a></li>
+			<li><a href="#"><img src="{% static 'images/f3.png' %}" class="img-responsive" alt=""></a></li>
+		</ul>
+		<p class="footer-class">&copy; 2016 Shopin. All Rights Reserved | Design by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
+		<div class="clearfix"> </div>
+	</div>
+</div>
 
+<!--//footer-->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="{% static 'js/simpleCart.min.js' %}"> </script>
+<!-- slide -->
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<!--light-box-files -->
+<script src="{% static 'js/jquery.chocolat.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/chocolat.css' %}" type="text/css" media="screen" charset="utf-8">
+<!--light-box-files -->
+<script type="text/javascript" charset="utf-8">
+$(function() {
+$('a.picture').Chocolat();
+});
+</script>
 
-<!-- ========================= FOOTER ========================= -->
-<footer class="section-footer border-top">
+<!-- ========================= FOOTER =========================  -->
+<!-- <footer class="section-footer border-top">
 	<div class="container">
 		<section class="footer-bottom border-top row">
 			<div class="col-md-2">
@@ -18,6 +44,7 @@
 				<i class="fab fa-lg fa-cc-mastercard"></i>
 			</div>
 		</section>
-	</div><!-- //container -->
-</footer>
+	</div>//container -->
+<!-- </footer> -->
 <!-- ========================= FOOTER END // ========================= -->
+

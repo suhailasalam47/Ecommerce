@@ -6,7 +6,7 @@
 
 
 
-<!-- ========================= SECTION MAIN ========================= -->
+<!-- ========================= SECTION MAIN =========================
 <section class="section-intro padding-y-sm">
 <div class="container">
 
@@ -14,20 +14,46 @@
 	<img src="{% static 'images/banners/ecover.jpg' %}" class="img-fluid rounded" >
 </div>
 
-</div> <!-- container //  -->
-</section>
+</div>  container //  -->
+<!-- </section> --> 
 <!-- ========================= SECTION MAIN END// ========================= -->
 
+<div class="banner">
+	<div class="container">
+	<section class="rw-wrapper">
+					<h1 class="rw-sentence">
+						<span>Fashion &amp; Beauty</span>
+						<div class="rw-words rw-words-1">
+							<span>Beautiful Designs</span>
+							<span>Sed ut perspiciatis</span>
+							<span> Totam rem aperiam</span>
+							<span>Nemo enim ipsam</span>
+							<span>Temporibus autem</span>
+							<span>intelligent systems</span>
+						</div>
+						<div class="rw-words rw-words-2">
+							<span>We denounce with right</span>
+							<span>But in certain circum</span>
+							<span>Sed ut perspiciatis unde</span>
+							<span>There are many variation</span>
+							<span>The generated Lorem Ipsum</span>
+							<span>Excepteur sint occaecat</span>
+						</div>
+					</h1>
+				</section>
+				</div>
+	</div>
+
 <!-- ========================= SECTION  ========================= -->
-<section class="section-name padding-y-sm">
+<!-- <section class="section-name padding-y-sm">
 <div class="container">
 
 <header class="section-heading">
-	<a href="{% url 'store' %}" class="btn btn-outline-primary float-right">See all</a>
+	<a href="{% url 'store' %}" class="btn btn-outline-dark float-right">See all</a>
 	<h3 class="section-title">Popular products</h3>
-</header><!-- sect-heading -->
+</header> sect-heading -->
 
-	
+<!-- 	
 <div class="row">
 	{% for p in products %}
 	<div class="col-md-3">
@@ -35,18 +61,66 @@
 			<a href="{{ p.get_url }}" class="img-wrap"> <img src="{{p.images.url}}"> </a>
 			<figcaption class="info-wrap">
 				<a href="{{ p.get_url }}" class="title">{{p.product_name}}</a>
-				<div class="price mt-1">${{p.price}}</div> <!-- price-wrap.// -->
+				<div class="price mt-1">${{p.price}}</div>  price-wrap.// 
 			</figcaption>
 		</div>
-	</div> <!-- col.// -->
-	{% endfor %}
-</div> <!-- row.// -->
+	</div>  col.// -->
+	<!-- {% endfor %}
+</div> row.//
 
-</div><!-- container // -->
-</section>
+</div> container // 
+</section> --> 
 <!-- ========================= SECTION  END// ========================= -->
 
+<!--products-->
+<div class="container">
+<div class="content-mid">
+	<h3>Trending Items</h3>
+	<label class="line"></label>
+	<div class="mid-popular">
+		<div class="row">
+			{% for p in products %}
+		
+		
+		<div class="col-md-3 item-grid simpleCart_shelfItem">
+		<div class=" mid-pop">
+			
+		<div class="pro-img">
+			<img src="{{p.images.url}}" class="img-responsive" style="height: 260px; width:300px" alt="">
+			<div class="zoom-icon ">
+			<a class="picture" href="{{p.images.url}}" rel="title" class="b-link-stripe b-animate-go  thickbox"><i class="glyphicon glyphicon-search icon "></i></a>
+			<a href=""><i class="glyphicon glyphicon-menu-right icon"></i></a>
+			</div>
+			</div>
+			<div class="mid-1">
+			<div class="women">
+			<div class="women-top">
+				<span>Category</span><br>
+				<h6><a href="{{ p.get_url }}" class="title">{{p.product_name}}</a></h6>
+				</div>
+				<div class="img item_add">
+					<a href="#"><img src="{% static 'images/ca.png' %}" alt=""></a>
+				</div>
+				<div class="clearfix"></div>
+				</div>
+				<div class="mid-2">
+					<em class="item_price">${{p.price}}</em></p>
+					  <div class="block">
+						<div class="starbox small ghosting"> </div>
+					</div>
+					
+					<div class="clearfix"></div>
+				</div>
+				
+			</div>
+		</div>
+		</div>
+		{% endfor %}
+	</div>
+</div>
 
+</div>
+</div>
 
 
 </body>
