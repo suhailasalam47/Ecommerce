@@ -5,7 +5,7 @@
 
 
 <!-- ========================= SECTION CONTENT ========================= -->
-<section class="section-conten padding-y" style="min-height:84vh">
+
 
     <!-- ============================ COMPONENT LOGIN   ================================= -->
 
@@ -19,41 +19,49 @@
     </div>    
 
     {% else %}
-        <div class="card mx-auto" style="max-width: 380px; margin-top:100px;">
-            {% include 'includes/alerts.html' %}
-          <div class="card-body">
-          <h4 class="card-title mb-4">Sign in</h4>
-          <form action="{% url 'login' %}" method="POST">
-              {% csrf_token %}
-              <div class="form-group">
-                 <input type="email" class="form-control" placeholder="Email Address" name="email">
-              </div> <!-- form-group// -->
-              <div class="form-group">
-                <input type="password" class="form-control" placeholder="Password" name="password">
-              </div> <!-- form-group// -->
-              
-              <div class="form-group">
-                  <a href="{% url 'forgot_password' %}" class="float-right">Forgot password?</a> 
-               
-              </div> <!-- form-group form-check .// -->
-              <div class="form-group">
-                  <button type="submit" class="btn btn-primary btn-block"> Login  </button>
-              </div> <!-- form-group// -->    
-          </form>
-          </div> <!-- card-body.// -->
-        </div> <!-- card .// -->
-    
-         <p class="text-center mt-4">Don't have account? <a href="{% url 'register' %}">Sign up</a></p>
-         <br><br>
 
-
-         
-
+    <!--login-->
+    <div class="banner-top">
+        <div class="container">
+            <h1>Login</h1>
+            <em></em>
+            <h2><a href="index.html">Home</a><label>/</label>Login</h2>
+        </div>
+    </div>
+<div class="container">
+    <div class="login ">
+        {% include 'includes/alerts.html' %}
+        <div class="row">
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+        
+        <div class="col-12 col-md-6 login-do">
+            <div class="login-mail">
+                <input type="text" placeholder="Email Address" name="email">
+                <i  class="glyphicon glyphicon-envelope"></i>
+            </div>
+            <div class="login-mail">
+                <input type="password" placeholder="Password" name="password">
+                <i class="glyphicon glyphicon-lock"></i>
+            </div>
+            <div class="text-right">
+               <a href="{% url 'forgot_password' %}">Forgot password?</a> 
+             
+            </div> 
+            <div class="text-center">
+            <label class="hvr-skew-backward">
+                <input type="submit" value="login">
+            </label>
+        </div><br><br>
+            <p class="text-center mt-4">Don't have account? <a href="{% url 'register' %}">Sign up</a></p>
+        </div>
+   
+        </form>
+    </div>
+        </div>
+        </div><br><br><br>
          {% endif %}
-    <!-- ============================ COMPONENT LOGIN  END.// ================================= -->
-    
-    
-    </section>
+
     <!-- ========================= SECTION CONTENT END// ========================= -->
     
 
