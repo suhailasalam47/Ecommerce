@@ -4,65 +4,71 @@
 {% block content %}
 
 
-<!-- ========================= SECTION CONTENT ========================= -->
-<section class="section-content padding-y">
-
-    <!-- ============================ COMPONENT REGISTER   ================================= -->
-        <div class="card mx-auto" style="max-width:520px; margin-top:40px;">
-          <article class="card-body">
-            {% include 'includes/alerts.html' %}
-            <header class="mb-4"><h4 class="card-title">Sign up</h4></header>
-            <form action="{% url 'register' %}" method="POST">
-              {% csrf_token %}
-               
-                    <div class="form-row">
-                        <div class="col form-group">
-                            <label>First name</label>
-                              {{ form.first_name }}
-                        </div> <!-- form-group end.// -->
-                        <div class="col form-group">
-                            <label>Last name</label>
+    
+    <div class="banner-top">
+      <div class="container">
+        <h1>Register</h1>
+        <em></em>
+        <h2><a href="index.html">Home</a><label>/</label>Register</h2>
+      </div>
+    </div>
+    <!--login-->
+    <div class="container">
+        <div class="login">
+          {% include 'includes/alerts.html' %}
+          <form action="{% url 'register' %}" method="POST">
+            {% csrf_token %}
+          <div class="col-md-6 login-do">
+          <div class="login-mail">
+            <i  class="glyphicon glyphicon-user"></i>
+            {{ form.first_name }}
+             
+            </div>
+            <div class="login-mail">
                             {{ form.last_name }}
-                        </div> <!-- form-group end.// -->
-                    </div> <!-- form-row end.// -->
-                    <!-- form-group end.// -->
-                   
-                    <div class="form-row">
-                      <div class="form-group col-md-6">
-                        <label>Phone number</label>
-                        {{ form.phone_number }}
-                      </div> <!-- form-group end.// -->
-                      <div class="form-group col-md-6">
-                        <label>Email</label>
-                        {{ form.email }}
-                        
-                    </div> 
-                    </div> <!-- form-row.// -->
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label>Create password</label>
+              <i  class="glyphicon glyphicon-user"></i>
+            </div>
+            <div class="login-mail">
+              {{ form.email }}
+              <i  class="glyphicon glyphicon-envelope"></i>
+            </div>
+            <div class="login-mail">
+              {{ form.phone_number }}
+              <i  class="glyphicon glyphicon-phone"></i>
+            </div>
+            <div class="login-mail">
                             {{ form.password }}
-                        </div> <!-- form-group end.// --> 
-                        <div class="form-group col-md-6">
-                            <label>Repeat password</label>
+              <i class="glyphicon glyphicon-lock"></i>
+            </div>
+            <div class="login-mail">
                             {{ form.confirm_password }}
-                        </div> <!-- form-group end.// -->  
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block"> Register  </button>
-                    </div> <!-- form-group// -->      
-                  {{ form.email.errors }}
+              <i class="glyphicon glyphicon-lock"></i>
+            </div>
+               <a class="news-letter text-right" href="#">
+                 Forget Password
+                 </a>
+                 <div class="text-center">
+
+            <label class="hvr-skew-backward ">
+              <input type="submit" value="Register">
+            </label>
+          </div>
+          </div>
+          <div class="col-md-6 login-right">
+             <h3>Completely Free Account</h3>
+             
+             <p>Pellentesque neque leo, dictum sit amet accumsan non, dignissim ac mauris. Mauris rhoncus, lectus tincidunt tempus aliquam, odio 
+             libero tincidunt metus, sed euismod elit enim ut mi. Nulla porttitor et dolor sed condimentum. Praesent porttitor lorem dui, in pulvinar enim rhoncus vitae. Curabitur tincidunt, turpis ac lobortis hendrerit, ex elit vestibulum est, at faucibus erat ligula non neque.</p>
+            <a href="login.html" class="hvr-skew-backward">Login</a>
+    
+          </div>
+          
+          <div class="clearfix"> </div>
+          {{ form.email.errors }}
                   {{ form.non_field_errors }}
-                </form>
-            </article><!-- card-body.// -->
-        </div> <!-- card .// -->
-        <p class="text-center mt-4">Have an account? <a href="{% url 'login' %}">Log In</a></p>
-        <br><br>
-    <!-- ============================ COMPONENT REGISTER  END.// ================================= -->
+          </form>
+        </div>
     
-    
-    </section>
-    <!-- ========================= SECTION CONTENT END// ========================= -->
-    
+    </div><br><br>
 
 {% endblock %}
