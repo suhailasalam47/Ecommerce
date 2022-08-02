@@ -10,33 +10,33 @@
     
     <!-- ============================ COMPONENT 1 ================================= -->
     <div class="card">
+        <br><br>
         <div class="row no-gutters">
-            <aside class="col-md-6">
+            <div class="col-md-6">
     <article class="gallery-wrap"> 
-        <div class="img-big-wrap">
-           <a href="#"><img src="{{ single_product.images.url }}"></a>
+        <div class="img-fluid">
+           <a href="#"><img src="{{ single_product.images.url }}" style="height:500px ;width: 500px"></a>
         </div> <!-- img-big-wrap.// -->
         
     </article> <!-- gallery-wrap .end// -->
-            </aside>
-            <main class="col-md-6 border-left">
+</div>
+<div class="col-md-6 single-top-in">
     <form action="{% url 'add_cart' single_product.id %}" method='POST'>    
-      {% csrf_token %}     
-        <article class="content-body">
+        {% csrf_token %}    
+    <div class="span_2_of_a1 simpleCart_shelfItem">
+<h3>{{ single_product.product_name}}</h3><br>
+<div class="price_single">
+<span class="reducedfrom item_price">${{single_product.price}}</span>
+<div class="clearfix"></div>
+</div>
+<h4 class="quick">Quick Overview:</h4>
+<p class="quick_desc">{{single_product.description}}</p>
         
-        <h2 class="title">{{ single_product.product_name}}</h2>
-        
-        <div class="mb-3"> 
-            <var class="price h4">${{single_product.price}}</var> 
-        </div> 
-        
-        <p>{{single_product.description}}</p>
-        
-        
+
         <hr>
             <div class="row">
                 <div class="item-option-select">
-                    <h6>Choose Color</h6>
+                    <h5><b>Choose Color</b></h5>
                     <select name="color" class="form-control" required>
                       <option value="" disabled selected>Select</option>
                       {% for i in single_product.variation_set.colors %}
@@ -45,9 +45,10 @@
                     </select>
                 </div>
             </div> <!-- row.// -->
+            <br>
             <div class="row">
                 <div class="item-option-select">
-                    <h6>Select Size</h6>
+                    <h5><b>Select Size</b> </h5>
                     <select name="size" class="form-control" required>
                       <option value="" disabled selected>Select</option>
                       {% for i in single_product.variation_set.sizes %}
@@ -60,13 +61,17 @@
             {% if single_product.stock <= 0 %}
             <h5 style="color: red;">Out of Stock</h5>
             {% else %}
-            <button type="submit" class="btn  btn-primary"> <span class="text">Add to Cart</span> <i class="fas fa-shopping-cart"></i>  </a>
+            <button type="submit" class="add-to item_add hvr-skew-backward">Add to cart </button>
+                
             {% endif %}
         </article> <!-- product-info-aside .// -->
   </form> 
             </main> <!-- col.// -->
         </div> <!-- row.// -->
     </div> <!-- card.// -->
+    </div>
+    </div>
+    
     <!-- ============================ COMPONENT 1 END .// ================================= -->
     
     <br>
@@ -77,7 +82,7 @@
         
         <form action="{% url 'submit_review' single_product.id %}" method="POST">
             {% csrf_token %}
-            <h4>Write Your Review</h4>
+            <h3>Write Your Review</h3><hr>
             <div>
                 <label>How do you rate this product?</label><br>
                 <div class="rate">
@@ -98,7 +103,7 @@
                 Review : <textarea name="review" rows="4" class="form-control"></textarea><br>
 
                 {% if user.is_authenticated %}
-                <input type="submit" value="Post Review" class="btn btn-primary">
+                <input type="submit" value="Post Review" class="btn btn-danger">
                 {% else %}
                 <p>You must be logged in to post a review <span><a href="{% url 'login' %}">Login</a></span></p>
                 {% endif%}
@@ -108,16 +113,16 @@
         </form>
         <br>
         <header class="section-heading">
-            <h3>Customer Reviews </h3>  
+            <h3>Customer Reviews </h3>  <br>
             
         </header>
     
         <article class="box mb-3">
             <div class="icontext w-100">
-                <img src="{% static './images/avatars/avatar1.jpg' %}" class="img-xs icon rounded-circle">
+                <img src="{% static 'images/avathar.jpg' %}" style="border-radius: 70%;height:70px;width:100px">
                 <div class="text">
                     <span class="date text-muted float-md-right">24.04.2020 </span>  
-                    <h6 class="mb-1">Mike John </h6>
+                    <h6 class="mb-1"><b>Mike John</b>  </h6>
                     
                 </div>
             </div> <!-- icontext.// -->
