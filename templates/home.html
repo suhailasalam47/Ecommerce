@@ -89,13 +89,13 @@
 			<img src="{{p.images.url}}" class="img-responsive" style="height: 260px; width:300px" alt="">
 			<div class="zoom-icon ">
 			<a class="picture" href="{{p.images.url}}" rel="title" class="b-link-stripe b-animate-go  thickbox"><i class="glyphicon glyphicon-search icon "></i></a>
-			<a href=""><i class="glyphicon glyphicon-menu-right icon"></i></a>
+			<a href="{{ p.get_url }}"><i class="glyphicon glyphicon-menu-right icon"></i></a>
 			</div>
 			</div>
 			<div class="mid-1">
 			<div class="women">
 			<div class="women-top">
-				<span>Category</span><br>
+				<span>{{p.category}}</span><br>
 				<h6><a href="{{ p.get_url }}" class="title">{{p.product_name}}</a></h6>
 				</div>
 				<div class="img item_add">
