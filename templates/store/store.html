@@ -8,14 +8,18 @@
 
 <!-- ========================= SECTION PAGETOP ========================= -->
 <section class="section-pagetop bg">
+  <br><br>
     <div class="container">
         {% if 'search' in request.path %}
-          <h2 class="title-page">Search Result</h2>
+          <h2 class="title-page text-center">Search Result</h2>
+          <label class="line"></label>
         {% else %}
-        <h2 class="title-page">Our Store</h2>
+        <h2 class="title-page text-center">Our Store</h2>
+        <label class="line"></label>
         {% endif %}
         
     </div> <!-- container //  -->
+    <br><br>
     </section>
     <!-- ========================= SECTION INTRO END// ========================= -->
     
@@ -27,17 +31,9 @@
         <aside class="col-md-3">
             
     <div class="card">
-        <article class="filter-group">
-            <header class="card-header">
-                <a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
-                    <i class="icon-control fa fa-chevron-down"></i>
-                    <h6 class="title">Categories</h6>
-                </a>
-            </header>
-            <div class="filter-content collapse show" id="collapse_1" style="">
-                <div class="card-body">
-                    
-                    <ul class="list-menu">
+      <div class=" rsidebar span_1_of_left">
+        <h4 class="cate">Categories</h4>
+           <ul class="menu-drop">
                         <li><a href="{% url 'store' %}"> All products </a></li>
                         {% for category in links %}
                     <li><a href="{{ category.get_url }}"> {{ category.category_name}} </a></li>
@@ -46,81 +42,40 @@
                     </ul>
     
                 </div> <!-- card-body.// -->
-            </div>
-        </article> <!-- filter-group  .// -->
-        <article class="filter-group">
-            <header class="card-header">
-                <a href="#" data-toggle="collapse" data-target="#collapse_4" aria-expanded="true" class="">
-                    <i class="icon-control fa fa-chevron-down"></i>
-                    <h6 class="title">Sizes </h6>
-                </a>
-            </header>
-            <div class="filter-content collapse show" id="collapse_4" style="">
-                <div class="card-body">
-                  <label class="checkbox-btn">
-                    <input type="checkbox">
-                    <span class="btn btn-light"> XS </span>
-                  </label>
-    
-                  <label class="checkbox-btn">
-                    <input type="checkbox">
-                    <span class="btn btn-light"> SM </span>
-                  </label>
-    
-                  <label class="checkbox-btn">
-                    <input type="checkbox">
-                    <span class="btn btn-light"> LG </span>
-                  </label>
-    
-                  <label class="checkbox-btn">
-                    <input type="checkbox">
-                    <span class="btn btn-light"> XXL </span>
-                  </label>
-            </div><!-- card-body.// -->
-            </div>
-        </article> <!-- filter-group .// -->
+            <!-- filter-group  .// -->
         
-        <article class="filter-group">
-            <header class="card-header">
-                <a href="#" data-toggle="collapse" data-target="#collapse_3" aria-expanded="true" class="">
-                    <i class="icon-control fa fa-chevron-down"></i>
-                    <h6 class="title">Price range </h6>
-                </a>
-            </header>
-            <div class="filter-content collapse show" id="collapse_3" style="">
-                <div class="card-body">
-                    
-                    <div class="form-row">
-                    <div class="form-group col-md-6">
-                      <label>Min</label>
-                      <!-- <input class="form-control" placeholder="$0" type="number"> -->
-                          <select class="mr-2 form-control">
-                            <option value="0">$0</option>
-                            <option value="50">$50</option>
-                            <option value="100">$100</option>
-                            <option value="150">$150</option>
-                            <option value="200">$200</option>
-                            <option value="500">$500</option>
-                            <option value="1000">$1000</option>
-                        </select>
-                    </div>
-                    <div class="form-group text-right col-md-6">
-                      <label>Max</label>
-                          <select class="mr-2 form-control">
-                            <option value="50">$50</option>
-                            <option value="100">$100</option>
-                            <option value="150">$150</option>
-                            <option value="200">$200</option>
-                            <option value="500">$500</option>
-                            <option value="1000">$1000</option>
-                            <option value="2000">$2000+</option>
-                        </select>
-                    </div>
-                    </div> <!-- form-row.// -->
-                    <button class="btn btn-block btn-primary">Apply</button>
-                </div><!-- card-body.// -->
-            </div>
-        </article> <!-- filter-group .// -->
+            <section  class="sky-form">
+              <h4 class="cate">Discounts</h4>
+               <div class="row row1 scroll-pane">
+                 <div class="col col-4">
+                    <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Upto - 10% (20)</label>
+                 </div>
+                 <div class="col col-4">
+                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>40% - 50% (5)</label>
+                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>30% - 20% (7)</label>
+                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>10% - 5% (2)</label>
+                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Other(50)</label>
+                 </div>
+               </div>
+             </section> 				 				 
+     
+             <section  class="sky-form">
+              <h4 class="cate">Brand</h4>
+                <div class="row row1 scroll-pane">
+                  <div class="col col-4">
+                    <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Roadstar</label>
+                  </div>
+                  <div class="col col-4">
+                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Levis</label>
+                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Persol</label>
+                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Nike</label>
+                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Edwin</label>
+                    <label class="checkbox"><input type="checkbox" name="checkbox" ><i></i>New Balance</label>
+                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Paul Smith</label>
+                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Ray-Ban</label>
+                  </div>
+                </div>
+             </section>	
         
     </div> <!-- card.// -->
     
@@ -137,25 +92,39 @@
     <div class="row">
       {% if products %}
         {% for p in products %}
-        <div class="col-md-4">
-            <figure class="card card-product-grid">
-                <div class="img-wrap"> 
-                    
-                   <a href="{{ p.get_url }}"><img src="{{ p.images.url }}"></a> 
-                    
-                </div> <!-- img-wrap.// -->
-                <figcaption class="info-wrap">
-                    <div class="fix-height">
-                        <a href="{{ p.get_url }}" class="title">{{p.product_name}}</a>
-                        <div class="price-wrap mt-2">
-                            <span class="price">${{p.price}}</span>
-                    
-                        </div> <!-- price-wrap.// -->
-                    </div>
-                    <a href="{{ p.get_url }}" class="btn btn-block btn-primary">View Details </a>
-                </figcaption>
-            </figure>
-        </div> <!-- col.// -->
+        <div class="col-md-4 item-grid simpleCart_shelfItem">
+          <div class=" mid-pop">
+            
+          <div class="pro-img">
+            <img src="{{p.images.url}}" class="img-responsive" style="height: 260px; width:300px" alt="">
+            <div class="zoom-icon ">
+            <a class="picture" href="{{p.images.url}}" rel="title" class="b-link-stripe b-animate-go  thickbox"><i class="glyphicon glyphicon-search icon "></i></a>
+            <a href=""><i class="glyphicon glyphicon-menu-right icon"></i></a>
+            </div>
+            </div>
+            <div class="mid-1">
+            <div class="women">
+            <div class="women-top">
+              <span>Category</span><br>
+              <h6><a href="{{ p.get_url }}" class="title">{{p.product_name}}</a></h6>
+              </div>
+              <div class="img item_add">
+                <a href="#"><img src="{% static 'images/ca.png' %}" alt=""></a>
+              </div>
+              <div class="clearfix"></div>
+              </div>
+              <div class="mid-2">
+                <em class="item_price">${{p.price}}</em></p>
+                  <div class="block">
+                  <div class="starbox small ghosting"> </div>
+                </div>
+                
+                <div class="clearfix"></div>
+              </div>
+              
+            </div>
+          </div>
+          </div>
     
        {% endfor %}
      {% else %}  
@@ -170,7 +139,7 @@
         {% if products.has_other_pages %}
       <ul class="pagination">
         {% if products.has_previous %}
-        <li class="page-item "><a class="page-link" href="?page={{products.previous_page_number}}">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{products.previous_page_number}}">Previous</a></li>
         {% else %}
         <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
         {% endif %}
@@ -198,6 +167,7 @@
     
     </div> <!-- container .//  -->
     </section>
+    <br><br>
     <!-- ========================= SECTION CONTENT END// ========================= -->
 
 
