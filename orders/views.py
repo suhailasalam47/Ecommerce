@@ -203,9 +203,13 @@ def cash_on_delivery(requset):
         order.Payment = payment
         order.is_ordered = True
         order.save()
+
+        order_product = OrderProduct.objects.filter(order_id=order.id)
+        
         order_completed(user, order=order, payment=payment)
         context = {
             "order": order,
             "payment": payment,
+            "order_product":order_product,
         }
     return render(requset, "orders/order_success.html", context)
