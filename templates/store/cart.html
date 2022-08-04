@@ -11,7 +11,7 @@
     {% if not cart_items %}
     <div class="text-center">
     <h2 >Your shopping cart is empty</h2><br>
-    <a href="{% url 'store' %}" class="btn btn-primary">Continue Shopping </a>
+    <a href="{% url 'store' %}" class="btn btn-danger">Continue Shopping </a>
     </div>
     {% else %}
     <div class="row">
@@ -45,37 +45,19 @@
             </td>
 			<div class="clearfix"> </div>
 			<td>
-                <div class="col"> 
-                    <div class="quantity"> 
+                <div class="row">
                         <div class="quantity-select">                           
-                            <a href="{% url 'remove_cart' cart_item.product.id  cart_item.id %}"><div class="entry value-minus">&nbsp;</div></a> 
-                            <div class="entry value"><span>{{ cart_item.quantity }}</span></div>
+                            <a href="{% url 'remove_cart' cart_item.product.id  cart_item.id %}" class="btn btn-default" type="button" id="button-plus"> <i class="fa fa-minus"></i> </a>
+                            <span>{{ cart_item.quantity }}</span>
                             <form action="{% url 'add_cart' cart_item.product.id %}" method="POST">
                                 {% csrf_token %}   
                                 {% for item in cart_item.variation.all %}
                                     <input type="hidden" name="{{ item.variation_category | lower }}" value="{{ item.variation_value | capfirst }}">
                                 {% endfor %}
-                            <div class="entry value-plus active">&nbsp;</div>
+                                <button class="btn btn-default" type="submit" id="button-minus"> <i class="fa fa-plus"></i> </button>
                         </form> 
                         </div>
                     </div>
-                    <!--quantity-->
-                    <!-- <div class="input-group input-spinner">
-                        <div class="input-group-prepend">
-                        <a href="{% url 'remove_cart' cart_item.product.id  cart_item.id %}" class="btn btn-light" type="button" id="button-plus"> <i class="fa fa-minus"></i> </a>
-                        </div>
-                        <input type="text" class="form-control"  value="{{ cart_item.quantity }}">
-                        <div class="input-group-append">
-                            <form action="{% url 'add_cart' cart_item.product.id %}" method="POST">
-                                {% csrf_token %}   
-                                {% for item in cart_item.variation.all %}
-                                    <input type="hidden" name="{{ item.variation_category | lower }}" value="{{ item.variation_value | capfirst }}">
-                                {% endfor %}
-                                <button class="btn btn-light" type="submit" id="button-minus"> <i class="fa fa-plus"></i> </button>
-                            </form> 
-                        </div> -->
-                  </div><!-- input-group.// -->
-                </div> <!-- col.// -->
             </td>
 			<td class="item_price">
                 <h5 class="text-dark">${{cart_item.sub_total }}</h5> 

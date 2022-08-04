@@ -11,8 +11,8 @@
             <div class="container">
             <div class="col-sm-5 col-md-offset-2  header-login">
                         <ul >
-                            {% if user.authenticated %}
-                            <small>Welcome {{user.first_name}}</small>
+                            {% if user.is_authenticated %}
+                            <li><a href=""> Welcome {{user.first_name}}</a></li>
                             <li><a href="{% url 'dashboard' %}">dashboard</a></li>
                             <li><a href="{% url 'logout' %}">Logout</a></li>
                             {% else %}
@@ -110,9 +110,10 @@
                         </ul>
                         <div class="cart box_1">
                             <a href="{% url 'cart' %}">
-                            <h3> <div class="total">
-                                <span class="simpleCart_total"></span></div>
-                               <img src="{% static 'images/cart.png' %}" alt=""/></h3>
+                            <h3><img src="{% static 'images/cart.png' %}" alt=""/> 
+                                <div class="total">
+                                <span class="">{{cart_count}}</span></div>
+                               </h3>
                             </a>
                             <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
     
