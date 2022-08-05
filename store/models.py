@@ -1,10 +1,8 @@
-from audioop import avg
-import imp
 from django.urls import reverse
 from django.db import models
 from accounts.models import Account
 from category.models import Category
-from django.db.models import Avg
+from django.db.models import Avg, Count
 
 # Create your models here.
 
@@ -35,6 +33,13 @@ class Product(models.Model):
         if review['average'] is not None:
             avg = float(review["average"])
         return avg
+
+    def count_review(self):
+        review = ReviewRating.objects.filter(product=self, status=True).aggregate(count=Count('id'))
+        count = 0
+        if review['count'] is not None:
+            count = int(review["count"])
+        return count
 
 
 class VariationManager(models.Manager):

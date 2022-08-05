@@ -25,15 +25,23 @@
         {% csrf_token %}    
     <div class="span_2_of_a1 simpleCart_shelfItem">
 <h3>{{ single_product.product_name}}</h3><br>
-<div class="price_single">
-<span class="reducedfrom item_price">${{single_product.price}}</span>
-<div class="clearfix"></div>
+<div class="rating-star">
+    <span>
+        <i class="fa fa-star{% if single_product.average_review < 0.5 %}-o{% elif single_product.average_review >= 0.5 and single_product.average_review < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+        <i class="fa fa-star{% if single_product.average_review < 1.5 %}-o{% elif single_product.average_review >= 1.5 and single_product.average_review < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+        <i class="fa fa-star{% if single_product.average_review < 2.5 %}-o{% elif single_product.average_review >= 2.5 and single_product.average_review < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+        <i class="fa fa-star{% if single_product.average_review < 3.5 %}-o{% elif single_product.average_review >= 3.5 and single_product.average_review < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+        <i class="fa fa-star{% if single_product.average_review < 4.5 %}-o{% elif single_product.average_review >= 4.5 and single_product.average_review < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+    </span>
 </div>
+
 <h4 class="quick">Quick Overview:</h4>
 <p class="quick_desc">{{single_product.description}}</p>
-        
-
-        <hr>
+<div class="price_single">
+    <span class="reducedfrom item_price">${{single_product.price}}</span>
+    <div class="clearfix"></div>
+    </div>   
+    <br>
             <div class="row">
                 <div class="item-option-select">
                     <h5><b>Choose Color</b></h5>
@@ -118,7 +126,17 @@
         <br>
         <header class="section-heading">
           <h3>Customer Reviews </h3>  <br>
-          <span>{{single_product.average_review}}</span>
+          <div class="rating-star">
+            <span>
+                <i class="fa fa-star{% if single_product.average_review < 0.5 %}-o{% elif single_product.average_review >= 0.5 and single_product.average_review < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if single_product.average_review < 1.5 %}-o{% elif single_product.average_review >= 1.5 and single_product.average_review < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if single_product.average_review < 2.5 %}-o{% elif single_product.average_review >= 2.5 and single_product.average_review < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if single_product.average_review < 3.5 %}-o{% elif single_product.average_review >= 3.5 and single_product.average_review < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+                <i class="fa fa-star{% if single_product.average_review < 4.5 %}-o{% elif single_product.average_review >= 4.5 and single_product.average_review < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+               
+            </span>
+            <span>({{single_product.count_review}} reviews)</span>
+        </div>
             
         </header>
     
