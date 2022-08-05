@@ -1,3 +1,4 @@
+import imp
 from cart.views import _cart_id
 from django.shortcuts import get_object_or_404, render, redirect
 from cart.models import CartItem
@@ -8,7 +9,7 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Q
 from .forms import ReviewRatingForm
 from django.contrib import messages
-
+from orders.models import OrderProduct
 # Create your views here.
 
 
@@ -42,6 +43,7 @@ def store(request, category_slug=None):
 
 
 def product_details(request, category_slug, product_slug):
+    order_product = None
     try:
         single_product = Product.objects.get(
             category__slug=category_slug, slug=product_slug
@@ -53,9 +55,15 @@ def product_details(request, category_slug, product_slug):
     except Exception as e:
         raise e
 
+    try:
+        order_product = OrderProduct.objects.filter(user=request.user, product_id=single_product.id).exists()
+    except:
+        order_product = None
+
     context = {
         "single_product": single_product,
         "in_cart": in_cart,
+        "order_product":order_product,
     }
     return render(request, "store/product_details.html", context)
 
