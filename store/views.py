@@ -60,10 +60,14 @@ def product_details(request, category_slug, product_slug):
     except:
         order_product = None
 
+    # Get the review
+    review = ReviewRating.objects.filter(product_id=single_product.id, status=True)
+
     context = {
         "single_product": single_product,
         "in_cart": in_cart,
         "order_product":order_product,
+        "review": review,
     }
     return render(request, "store/product_details.html", context)
 
