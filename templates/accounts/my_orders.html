@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include 'includes/alerts.html' %}
+{% load static %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+<div class="sidebar">
+    <a class="active" href="#home">Dashboard</a>
+    <a href="#news">My Orders</a>
+    <a href="#contact">Edit Profile</a>
+    <a href="#about">Change Password</a>
+  </div>
+</div>
+
+  <div class="content">
+      <div class="text-center">
+        <h4 class="quick">Order history</h4>
+        <label class="line"></label>
+        
+    </div><br>
+    <div class="col-md-12">
+        <div class="bs-example4" data-example-id="simple-responsive-table">
+            <div class="table-responsive">
+                    <table class="table-heading simpleCart_shelfItem table-hover"> 
+                  <tr>
+                    <th >Order#</th>
+                            
+                    <th>Billing Name</th>
+                    <th >Phone </th>
+                    <th>Order total</th>
+                    <th>Date</th>
+                  </tr>
+                  {% for i in orders %}
+                  <tr class="cart-header">
+                    <td>{{i.order_number}}</td>
+                    <td>{{i.full_name}}</td>
+                    <td>{{i.phone_number}}</td>
+                    <td>{{i.order_total}}</td>
+                    <td>{{i.created_at}}</td>
+                  </tr>
+                  {% endfor %}
+            </table>
+            </div>
+            </div>
+         
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
