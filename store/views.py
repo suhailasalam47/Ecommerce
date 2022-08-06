@@ -55,9 +55,12 @@ def product_details(request, category_slug, product_slug):
     except Exception as e:
         raise e
 
-    try:
-        order_product = OrderProduct.objects.filter(user=request.user, product_id=single_product.id).exists()
-    except:
+    if request.user.is_authenticated:
+        try:
+            order_product = OrderProduct.objects.filter(user=request.user, product_id=single_product.id).exists()
+        except:
+            order_product = None
+    else:
         order_product = None
 
     # Get the review
