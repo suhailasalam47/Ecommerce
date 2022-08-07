@@ -22,7 +22,7 @@
           <div class="col-md-6">
             <div class="panel panel-default text-center">
                 <div class="panel-body ">
-                    <img src="{% static 'images/avathar.jpg' %}" alt="" height="40" width="50" style="border-radius: 50%;" >
+                    <img src="{{user_profile.profile_picture.url}}" alt="" height="40" width="50" style="border-radius: 50%;" >
                     <p>{{user.email}}</p>
                     <p>{{user.phone_number}}</p>
                 </div>
