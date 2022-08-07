@@ -4,14 +4,7 @@
 {% load static %}
 <div class="container">
     <div class="row">
-        <div class="col-md-3">
-<div class="sidebar">
-    <a class="active" href="#home">Dashboard</a>
-    <a href="#news">My Orders</a>
-    <a href="#contact">Edit Profile</a>
-    <a href="#about">Change Password</a>
-  </div>
-</div>
+   {% include 'includes/dashboard_sidebar.html' %}
 
   <div class="content">
       <div class="text-center">
