@@ -1,4 +1,3 @@
-import black
 from django.db import models
 from django.contrib.auth.models import (
     AbstractBaseUser,
@@ -86,7 +85,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(Account, on_delete=models.CASCADE)
     address_line1 = models.CharField(max_length=100, blank=True)
     address_line2 = models.CharField(max_length=100, blank=True)
-    profile_picture = models.ImageField(blank=True, upload_to="/profilepic/")
+    profile_picture = models.ImageField(blank=True, upload_to="profilepic")
     city = models.CharField(max_length=30, blank=True)
     state = models.CharField(max_length=30, blank=True)
     country = models.CharField(max_length=30, blank=True)
