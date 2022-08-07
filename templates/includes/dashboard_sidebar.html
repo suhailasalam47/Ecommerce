@@ -3,6 +3,6 @@
         <a class="{% if '/accounts/' == request.path %}active{% endif %}" href="{% url 'dashboard' %}">Dashboard</a>
         <a class="{% if '/my_orders/' in request.path %}active{% endif %}" href="{% url 'my_orders' %}">My Orders</a>
         <a class="{% if '/edit_profile/' in request.path %}active{% endif %}" href="{% url 'edit_profile' %}">Edit Profile</a>
-        <a href="#about">Change Password</a>
+        <a class="{% if '/change_password/' in request.path %}active{% endif %}" href="{% url 'change_password' %}">Change Password</a>
       </div>
     </div>
