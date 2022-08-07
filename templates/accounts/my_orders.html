@@ -26,7 +26,7 @@
                   </tr>
                   {% for i in orders %}
                   <tr class="cart-header">
-                    <td>{{i.order_number}}</td>
+                    <td><a href="{% url 'order_detail' i.order_number %}">{{i.order_number}}</a> </td>
                     <td>{{i.full_name}}</td>
                     <td>{{i.phone_number}}</td>
                     <td>{{i.order_total}}</td>

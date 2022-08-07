@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect,get_object_or_404
 from .forms import RegistrationForm,UserForm,UserProfileForm
 from .models import Account, UserProfile
 from django.contrib.auth.decorators import login_required
-from orders.models import Order
+from orders.models import Order, OrderProduct
 
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
@@ -281,7 +281,6 @@ def edit_profile(request):
     return render(request, "accounts/edit_profile.html", context)
 
 
-
 @login_required(login_url="login")
 def change_password(request):
     if request.method == "POST":
@@ -308,3 +307,18 @@ def change_password(request):
             return redirect("change_password")
 
     return render(request, "accounts/change_password.html")
+
+
+@login_required(login_url="login")
+def order_detail(request, order_id):
+    order_detail = OrderProduct.objects.filter(order__order_number=order_id)
+    order = Order.objects.get(order_number=order_id)
+    sub_total = 0
+    for i in order_detail:
+        sub_total += i.product_price * i.quantity
+    context = {
+        "order_detail":order_detail,
+        "order":order,
+        "sub_total":sub_total,
+    }
+    return render(request, "accounts/order_detail.html", context)
