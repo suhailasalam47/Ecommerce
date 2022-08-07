@@ -14,52 +14,55 @@
     </div><br>
     <div class="col-md-12">
         <div class="contact-top">
-            <form method="post">
+            <div >
+                <img src="{{user_profile.profile_picture.url}}" alt="Image not supporting" width="100" style="border-radius: 50%;">
+            </div>
+            <form method="post" action="{% url 'edit_profile' %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-row">
                 <div class="col-md-6 form-group">
                     <span>First Name </span>		
-                    <input class="form-control" type="text" value="" >						
+                    {{user_form.first_name}}						
                 </div>
                 <div class="col-md-6 form-group">
                     <span>Last Name </span>		
-                    <input class="form-control" type="text" value="" >						
+                    {{user_form.last_name}}						
                 </div>
             </div>
             <div class="form-row">
                 <div class="col-md-6">
                     <span>Phone Number </span>		
-                    <input class="form-control" type="text" value="" >						
+                    {{user_form.phone_number}}						
                 </div>
                 <div class="col-md-6">
                     <span>Profile Picture</span>		
-                    <input class="form-control" type="file" value="" >						
+                    {{profile_form.profile_picture}}					
                 </div>
             </div>
             <div class="form-row">
                 <div class="col-md-12">
                     <span>Address line1</span>		
-                    <input class="form-control" type="text" value="" >						
+                    {{profile_form.address_line1}}						
                 </div>
                 </div>
                 <div class="form-row">
                 <div class="col-md-12">
                     <span>Address line2</span>		
-                    <input class="form-control" type="text" value="" >						
+                    {{profile_form.address_line2}}					
                 </div>
                 </div>
                 <div class="form-row">
                 <div class="col-md-4">
                     <span>City </span>		
-                    <input class="form-control" type="text" value="" >						
+                    {{profile_form.city}}					
                 </div>
                 <div class="col-md-4">
                     <span>State</span>		
-                    <input class="form-control" type="text" value="" >						
+                    {{profile_form.state}}						
                 </div>
                 <div class="col-md-4">
                     <span>Country</span>		
-                    <input class="form-control" type="text" value="" >						
+                    {{profile_form.country}}					
                 </div>
             </div>
                 <label class="hvr-skew-backward">
