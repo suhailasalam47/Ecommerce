@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block content %}
+{% include 'includes/alerts.html' %}
+{% load static %}
+<div class="container">
+    <div class="row">
+      {% include 'includes/dashboard_sidebar.html' %}
+
+  <div class="content">
+      <div class="text-center">
+        <h4 class="quick">Edit Profile</h4>
+        <label class="line"></label>
+        
+    </div><br>
+    <div class="col-md-12">
+        <div class="contact-top">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-row">
+                <div class="col-md-6 form-group">
+                    <span>First Name </span>		
+                    <input class="form-control" type="text" value="" >						
+                </div>
+                <div class="col-md-6 form-group">
+                    <span>Last Name </span>		
+                    <input class="form-control" type="text" value="" >						
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-6">
+                    <span>Phone Number </span>		
+                    <input class="form-control" type="text" value="" >						
+                </div>
+                <div class="col-md-6">
+                    <span>Profile Picture</span>		
+                    <input class="form-control" type="file" value="" >						
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-12">
+                    <span>Address line1</span>		
+                    <input class="form-control" type="text" value="" >						
+                </div>
+                </div>
+                <div class="form-row">
+                <div class="col-md-12">
+                    <span>Address line2</span>		
+                    <input class="form-control" type="text" value="" >						
+                </div>
+                </div>
+                <div class="form-row">
+                <div class="col-md-4">
+                    <span>City </span>		
+                    <input class="form-control" type="text" value="" >						
+                </div>
+                <div class="col-md-4">
+                    <span>State</span>		
+                    <input class="form-control" type="text" value="" >						
+                </div>
+                <div class="col-md-4">
+                    <span>Country</span>		
+                    <input class="form-control" type="text" value="" >						
+                </div>
+            </div>
+                <label class="hvr-skew-backward">
+                        <input type="submit" value="Save" >
+                </label>
+</form>						
+        </div>
+         
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
