@@ -36,11 +36,11 @@ input:checked ~ label, label:hover ~ label{
 
 input:checked + label:hover, input:checked ~ label:hover, input:checked ~ label:hover ~ label,
 label:hover ~ input:checked ~ label{
-    color: #e9699e;
+    color: #e9697c;
 }
 
 .rating-star i{
-    color: #d14d5d !important;
+    color: #d55a68 !important;
 }
 
 ul.thumb{
