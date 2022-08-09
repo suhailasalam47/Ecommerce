@@ -137,7 +137,6 @@ def place_order(request, total=0, quantity=0):
                 order_number=order_number,
             )
             if order:
-                print("inside if--------", order.order_number)
                 request.session["order_id"] = order_number
 
             context = {
@@ -213,3 +212,7 @@ def cash_on_delivery(requset):
             "order_product":order_product,
         }
     return render(requset, "orders/order_success.html", context)
+
+
+
+

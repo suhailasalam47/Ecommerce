@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect,get_object_or_404
 from .forms import RegistrationForm,UserForm,UserProfileForm
 from .models import Account, UserProfile
 from django.contrib.auth.decorators import login_required
-from orders.models import Order, OrderProduct
+from orders.models import Order, OrderProduct, Payment
 
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
@@ -315,6 +315,7 @@ def change_password(request):
 def order_detail(request, order_id):
     order_detail = OrderProduct.objects.filter(order__order_number=order_id)
     order = Order.objects.get(order_number=order_id)
+
     sub_total = 0
     for i in order_detail:
         sub_total += i.product_price * i.quantity
@@ -324,3 +325,4 @@ def order_detail(request, order_id):
         "sub_total":sub_total,
     }
     return render(request, "accounts/order_detail.html", context)
+
