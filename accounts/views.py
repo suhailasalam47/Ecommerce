@@ -1,3 +1,4 @@
+import email
 from django.contrib import messages, auth
 from django.shortcuts import render, redirect,get_object_or_404
 
@@ -16,7 +17,8 @@ from django.core.mail import EmailMessage
 from cart.views import _cart_id
 from cart.models import Cart, CartItem
 import requests
-
+from . import twilio_client
+from .twilio_client import TwilioOTP
 # Create your views here.
 
 
@@ -30,16 +32,28 @@ def register(request):
             phone_number = form.cleaned_data["phone_number"]
             password = form.cleaned_data["password"]
             username = email.split("@")[0]
-
-            user = Account.objects.create_user(
-                first_name=first_name,
-                last_name=last_name,
-                username=username,
-                email=email,
-                password=password,
-            )
-            user.phone_number = phone_number
-            user.save()
+            confirm_passwrd = form.cleaned_data["confirm_password"]
+            
+            if password!=confirm_passwrd:
+                messages.error(request,"Password not matching")
+                return redirect("register")
+            elif Account.objects.filter(email=email).exists():
+                print("email-------------------")
+                messages.error(request,"Email taken")
+                return redirect("register")
+            elif Account.objects.filter(phone_number=phone_number).exists():
+                messages.error(request,"Phone number exist")
+                return redirect("register")
+            else:
+                user = Account.objects.create_user(
+                    first_name=first_name,
+                    last_name=last_name,
+                    username=username,
+                    email=email,
+                    password=password,
+                )
+                user.phone_number = phone_number
+                user.save()
 
             #USER PROFILE CREATING
             profile = UserProfile()
@@ -76,12 +90,13 @@ def register(request):
 
 
 def login(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard')
     if request.method == "POST":
         email = request.POST["email"]
         password = request.POST["password"]
 
         user = auth.authenticate(email=email, password=password)
-        print(user)
 
         if user is not None:
             try:
@@ -89,7 +104,7 @@ def login(request):
                 is_cart_item_exist = CartItem.objects.filter(
                     cart=cart
                 ).exists()
-                print(is_cart_item_exist)
+                
                 if is_cart_item_exist:
                     cart_item = CartItem.objects.filter(cart=cart)
 
@@ -119,7 +134,7 @@ def login(request):
                             for item in cart_item:
                                 item.user = user
                                 item.save()
-            except:
+            except Cart.DoesNotExist:
                 pass
 
             auth.login(request, user)
@@ -139,6 +154,39 @@ def login(request):
             messages.error(request, "Invalid credential")
             return redirect("login")
     return render(request, "accounts/login.html")
+
+
+def phone_validation(request):
+    if request.method == 'POST':
+        phone = request.POST['phone']
+        request.session['phone'] = phone
+        if Account.objects.filter(phone_number=phone).exists():
+            obj = TwilioOTP()
+            obj.send(phone)
+            return redirect("otp_verification")
+        else:
+            messages.error(request, "Sorry, the phone number is no longer registered on this application.")
+            return redirect("phone_validation")
+    return render(request, "accounts/phone_submit.html")
+
+
+def otp_verification(request):
+    if request.method == 'POST':
+        otp = request.POST['otp']
+        phone = request.session['phone']
+
+        obj = TwilioOTP()
+        status = obj.check(phone,otp)
+        if status == 'approved':
+            user = Account.objects.get(phone_number=phone)
+            print(user)
+            auth.login(request, user)
+            messages.success(request, "Login successful")
+            return redirect("dashboard")
+        else:
+            messages.error(request, "Invalid OTP")
+            return redirect("otp_verification")
+    return render(request, "accounts/otp_verification.html")
 
 
 @login_required(login_url="login")

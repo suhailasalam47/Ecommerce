@@ -62,7 +62,7 @@ ROOT_URLCONF = 'greatkart.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': ['template1'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -162,3 +162,8 @@ EMAIL_USE_TLS = True
 # RAZORPAY KEYS
 RAZOR_KEY_ID = 'rzp_test_GQEAdvInv2dymG'
 RAZOR_KEY_SECRET = 'TCqEHubk2H838kthL3aFW0Zi'
+
+# TWILIO 
+TWILIO_VERIFY_SERVICE_SID= config('TWILIO_VERIFY_SERVICE_SID')
+TWILIO_ACCOUNT_SID = config('TWILIO_ACCOUNT_SID')
+TWILIO_AUTH_TOKEN = config('TWILIO_AUTH_TOKEN')

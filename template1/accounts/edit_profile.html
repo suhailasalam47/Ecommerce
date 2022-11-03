@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('/static/images/page-header-bg.jpg')">
+      <div class="container">
+        <h1 class="page-title">My Account<span>Edit Profile</span></h1>
+      </div><!-- End .container -->
+    </div><!-- End .page-header -->
+      <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+          <div class="container">
+              <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                  <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
+              </ol>
+          </div><!-- End .container -->
+      </nav><!-- End .breadcrumb-nav -->
+  <div class="container">
+      <div class="page-content">
+        <div class="dashboard">
+            <div class="container">
+              <div class="row">
+  
+                {% include 'includes/dashboard_sidebar.html' %}
+  
+                <div class="col-md-8 col-lg-9">
+                    <div class="page-content">
+                        <div class="checkout">
+                            <div class="container">
+                                <div class="checkout-discount">
+                                   
+                                </div><!-- End .checkout-discount -->
+                                <div>
+                                    <img src="{{user_profile.profile_picture.url}}" alt="Image not supporting" width="100" style="border-radius: 50%;">
+                                </div>
+                                <form method="post" action="{% url 'edit_profile' %}" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-lg-9">
+                                           
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <label>First Name *</label>
+                                                        {{user_form.first_name}}
+                                                    </div><!-- End .col-sm-6 -->
+                
+                                                    <div class="col-sm-6">
+                                                        <label>Last Name *</label>
+                                                        {{user_form.last_name}}
+                                                    </div><!-- End .col-sm-6 -->
+                                                </div><!-- End .row -->
+
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <label>Phone Number</label>
+                                                        {{user_form.phone_number}}	
+                                                    </div><!-- End .col-sm-6 -->
+                
+                                                    <div class="col-sm-6">
+                                                        <label>Profile picture</label>
+                                                        {{profile_form.profile_picture}}
+                                                    </div><!-- End .col-sm-6 -->
+                                                </div><!-- End .row -->
+                
+                
+                                                <label>Address line 1</label>
+                                                {{profile_form.address_line1}}	
+                                                <label>Address line 2</label>
+                                                {{profile_form.address_line2}}
+                
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <label> City </label>
+                                                        {{profile_form.city}}	
+                                                    </div><!-- End .col-sm-6 -->
+                
+                                                    <div class="col-sm-4">
+                                                        <label>State </label>
+                                                        {{profile_form.state}}	
+                                                    </div><!-- End .col-sm-6 -->
+                                                    <div class="col-sm-4">
+                                                        <label>Country </label>
+                                                        {{profile_form.country}}
+                                                    </div><!-- End .col-sm-6 -->
+                                                </div><!-- End .row -->
+                                                <div class="text-center">
+                                                <input class="btn btn-outline-primary-2 " type="submit" value="Save" >
+                                            </div>
+                                        </div><!-- End .col-lg-9 -->
+                                        
+                                    </div><!-- End .row -->
+                                </form>
+                            </div><!-- End .container -->
+                        </div><!-- End .checkout -->
+                    </div><!-- End .page-content -->
+              </div><!-- End .row -->
+  
+              
+              </div><!-- .End .tab-pane -->
+          </div>
+        </div>
+      </div><!-- End .col-lg-9 -->
+    </div><!-- End .row -->
+ <!-- End .page-content -->
+  </main><!-- End .main -->
+
+
+{% endblock %}
+

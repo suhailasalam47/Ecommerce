@@ -87,9 +87,9 @@
                 
                     {% for cart_item in cart_items %}    
                     <tr class="cart-header">
-                        <td class="ring-in"><a href="single.html" class="at-in"><img src="{{ cart_item.product.images.url }}" class="img-responsive" alt=""></a>
+                        <td class="ring-in"><a href="single.html" class="at-in"><img src="{{ cart_item.product.images.url }}" style="height: 10px; width:10px;" alt=""></a>
                             <div class="sed">
-                                <h5><a href="{{ cart_item.product.get_url }}">{{ cart_item.product.product_name}}</a></h5>
+                              <a href="{{ cart_item.product.get_url }}">{{ cart_item.product.product_name}}</a>
                                 <p>{% if cart_item.variation.all %}
                                     {% for item in cart_item.variation.all %}
                                       {{ item.variation_category | capfirst }} : {{ item.variation_value | capfirst }}<br>

@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="container" style="margin-top: 50px;">
+    <center><img src="{% static '/images/tick2.png' %}" style="max-height: 70px;" alt=""></center>
+    <h2 class="text-center">Payment Successful</h2>
+	<br>
+	<div class="text-center">
+        <p>Thank you! Your order has been approved. You will receive a confirmation email shortly.</p><br>
+        <a href="{% url 'store' %}" class="btn btn-primary btn-round">Shop more</a>
+	</div>
+</div>
+<br>
+
+
+<div class="container">
+<div class="row">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Summery</h5>
+          <ul class="list-unstyled">
+            <li><strong>Order</strong> #{{order.order_number}}</li>
+            {% if transID %}
+            <li><strong>Transaction ID</strong> #{{transID}}</li>
+            {% endif %}
+            <li><strong>Order Date:</strong> {{order.created_at}}</li>
+            <li><strong>Status:</strong> {{payment.status}}</li>
+        </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Invoiced To</h5>
+          <ul class="list-unstyled ">
+            <li>{{ order.full_name}}</li>
+            <li>{{order.full_address}}</li>
+            <li>{{order.city}},{{order.state}}</li>
+            <li>{{order.country}}</li>
+        </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" style="margin: 0 auto;width: 70%;padding: 50px;background: #f1f1f1;margin-top: 40px;margin-bottom: 50px;">
+    <div class="row invoice row-printable">
+
+
+                            <div class="col-lg-12">
+                            <div class="invoice-items">
+                                <div class="table-responsive" style="overflow: hidden; outline: none;" tabindex="0">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th class="per50 text-center">Product</th>
+                                                <th class="per15 text-center">Qty</th>
+                                                <th class="per25 text-center">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for item in order_product %}
+                                            <tr>
+                                                <td>
+                                                    <a href="" class="at-in"><img src="{{ item.product.images.url }}" class="img-responsive" style="max-width: 80px;" alt=""></a>
+                                                    {{item.product.product_name}}
+                                                    <p class="text-muted small">
+                                                        {% if item.variation.all %}
+                                                          {% for i in item.variation.all %}
+                                                            {{ i.variation_category | capfirst }} : {{ i.variation_value | capfirst }}<br>
+                                                          {% endfor %}
+                                                        {% endif %}
+                                                    </p>
+                                                </td>
+                                                <td class="text-center">{{item.quantity}}</td>
+                                                <td class="text-center">${{item.product_price}} USD</td>
+                                            </tr>
+                                            {% endfor %}
+                                            
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th colspan="2" class="text-right">Sub Total:</th>
+                                                <th class="text-center">${{sub_total}} USD</th>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="2" class="text-right">Tax:</th>
+                                                <th class="text-center">${{order.tax}}USD</th>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <th colspan="2" class="text-right">Grand Total:</th>
+                                                <th class="text-center">${{order.order_total}} USD</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <!-- col-lg-12 end here -->
+                       
+                    </div>
+                    <!-- End .row -->
+                </div>
+            </div>
+            <!-- End .panel -->
+        </div>
+        <!-- col-lg-12 end here -->
+        <div class="invoice-footer mt25">
+            <p class="text-center text-dark"><b>Thank you for shopping with us!</b> </p>
+        </div>
+    </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">Checkout<span>Shop</span></h1>
+        </div><!-- End .container -->
+    </div><!-- End .page-header -->
+    <nav aria-label="breadcrumb" class="breadcrumb-nav">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+            </ol>
+        </div><!-- End .container -->
+    </nav><!-- End .breadcrumb-nav -->
+
+    <div class="page-content">
+        <div class="checkout">
+            <div class="container">
+                <div class="checkout-discount">
+                    <form action="#">
+                        <input type="text" class="form-control" required id="checkout-discount-input">
+                        <label for="checkout-discount-input" class="text-truncate">Have a coupon? <span>Click here to enter your code</span></label>
+                    </form>
+                </div><!-- End .checkout-discount -->
+                <form action="{% url 'place_order' %}" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <h2 class="checkout-title">Billing Details</h2><!-- End .checkout-title -->
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label>First Name *</label>
+                                        <input name="first_name" type="text" class="form-control" required>
+                                    </div><!-- End .col-sm-6 -->
+
+                                    <div class="col-sm-6">
+                                        <label>Last Name *</label>
+                                        <input name="last_name" type="text" class="form-control" required>
+                                    </div><!-- End .col-sm-6 -->
+                                </div><!-- End .row -->
+
+
+                                <label>Address line 1</label>
+                                <input name="address_line_1" type="text" class="form-control" placeholder="House number and Street name" required>
+                                <label>Address line 2</label>
+                                <input name="address_line_2" type="text" class="form-control" placeholder="Appartments, suite, unit etc ..." required>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label> City *</label>
+                                        <input name="city" type="text" class="form-control" required>
+                                    </div><!-- End .col-sm-6 -->
+
+                                    <div class="col-sm-6">
+                                        <label>State </label>
+                                        <input name="state" type="text" class="form-control" required>
+                                    </div><!-- End .col-sm-6 -->
+                                </div><!-- End .row -->
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label>Country *</label>
+                                        <input name="country" type="text" class="form-control" required>
+                                    </div><!-- End .col-sm-6 -->
+
+                                    <div class="col-sm-6">
+                                        <label>Phone *</label>
+                                        <input type="phone" name="phone" class="form-control" required>
+                                    </div><!-- End .col-sm-6 -->
+                                </div><!-- End .row -->
+
+                                <label>Email address *</label>
+                                <input name="email" type="email" class="form-control" required>
+
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="checkout-create-acc">
+                                    <label class="custom-control-label" for="checkout-create-acc">Create an account?</label>
+                                </div><!-- End .custom-checkbox -->
+
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="checkout-diff-address">
+                                    <label class="custom-control-label" for="checkout-diff-address">Ship to a different address?</label>
+                                </div><!-- End .custom-checkbox -->
+
+                                <label>Order notes (optional)</label>
+                                <textarea name="order_note" class="form-control" cols="30" rows="4" placeholder="Notes about your order, e.g. special notes for delivery"></textarea>
+                        </div><!-- End .col-lg-9 -->
+                        <aside class="col-lg-3">
+                            <div class="summary">
+                                <h3 class="summary-title">Your Order</h3><!-- End .summary-title -->
+
+                                <table class="table table-summary">
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        {% for cart_item in cart_items %}  
+                                        <tr>
+                                            <td><a href="single.html" class="at-in"><img src="{{ cart_item.product.images.url }}" style="height: 50px; width:50px;" class="img-responsive" alt=""></a>
+                                                <div class="sed">
+                                                    <a href="{{ cart_item.product.get_url }}">{{ cart_item.product.product_name}}</a>
+                                                    <p>{% if cart_item.variation.all %}
+                                                        {% for item in cart_item.variation.all %}
+                                                          {{ item.variation_category | capfirst }} : {{ item.variation_value | capfirst }}<br>
+                                                        {% endfor %}
+                                                      {% endif %}
+                                                     </p>
+                                                     
+                                                
+                                                </div></td>
+                                            <td>${{cart_item.sub_total }}</td>
+                                        </tr> 
+
+                                       {% endfor %}
+                                    </tbody> 
+                                </table><!-- End .table table-summary -->
+
+                               
+                                    <br><br>
+                                <button type="submit" class="btn btn-outline-primary-2 btn-order btn-block">
+                                    <span >Place Order</span>
+                                </button>
+                                <a href="{% url 'store' %}" class="btn btn-default btn-block">Continue Shopping</a>
+                            </div><!-- End .summary -->
+                        </aside><!-- End .col-lg-3 -->
+                    </div><!-- End .row -->
+                </form>
+            </div><!-- End .container -->
+        </div><!-- End .checkout -->
+    </div><!-- End .page-content -->
+</main><!-- End .main -->
+    <!-- ========================= SECTION CONTENT END// ========================= -->
+
+
+{% endblock %}
