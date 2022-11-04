@@ -21,6 +21,7 @@ def add_cart(request, product_id):
         product_variation = []
 
         if request.method == "POST":
+            print("inside post-------------")
             for item in request.POST:
                 key = item
                 value = request.POST[key]
@@ -32,13 +33,15 @@ def add_cart(request, product_id):
                         variation_value__iexact=value,
                     )
                     product_variation.append(variation)
+
                 except:
                     pass
+            print("prod variation-------------", product_variation)    
 
-        is_cart_item_exist = CartItem.objects.filter(
-            product=product, user=current_user
-        ).exists()
+        is_cart_item_exist = CartItem.objects.filter(product=product, user=current_user).exists()
+        print("is cart item exist", is_cart_item_exist)
         if is_cart_item_exist:
+            print("inside is item exist")
             # combining products and cart
             cart_item = CartItem.objects.filter(
                 product=product, user=current_user
@@ -50,8 +53,11 @@ def add_cart(request, product_id):
                 existing_variation = item.variation.all()
                 ex_var_list.append(list(existing_variation))
                 id.append(item.id)
+            print("existing variation",ex_var_list)
+            print("prod variation-------------", product_variation)
 
             if product_variation in ex_var_list:
+                print("yes prod is in ex var list-------------")
                 # increase the cart item quantity
                 index = ex_var_list.index(product_variation)
                 item_id = id[index]
@@ -59,6 +65,7 @@ def add_cart(request, product_id):
                 item.quantity += 1
                 item.save()
             else:
+                print("prod is not in ex var list-------------")
                 # create a new cart item
                 item = CartItem.objects.create(
                     product=product, quantity=1, user=current_user
@@ -105,10 +112,9 @@ def add_cart(request, product_id):
             cart = Cart.objects.create(cart_id=_cart_id(request))
         cart.save()
 
-        is_cart_item_exist = CartItem.objects.filter(
-            product=product, cart=cart
-        ).exists()
+        is_cart_item_exist = CartItem.objects.filter(product=product, cart=cart).exists()
         if is_cart_item_exist:
+            print("cart item exist-------------")
             # combining products and cart
             cart_item = CartItem.objects.filter(product=product, cart=cart)
 
@@ -136,6 +142,7 @@ def add_cart(request, product_id):
                     item.variation.add(*product_variation)
                 item.save()
         else:
+            print("cart item not exist-------------")
             cart_item = CartItem.objects.create(
                 product=product,
                 quantity=1,

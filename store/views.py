@@ -44,6 +44,9 @@ def store(request, category_slug=None):
 
 def product_details(request, category_slug, product_slug):
     order_product = None
+    products = (
+            Product.objects.all().filter(is_available=True).order_by("id")
+        )
     try:
         single_product = Product.objects.get(
             category__slug=category_slug, slug=product_slug
@@ -75,6 +78,7 @@ def product_details(request, category_slug, product_slug):
         "order_product":order_product,
         "review": review,
         "product_gallery" : product_gallery,
+        "products":products,
     }
     return render(request, "store/product_details.html", context)
 

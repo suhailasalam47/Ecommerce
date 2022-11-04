@@ -79,7 +79,7 @@
                                     </div><!-- End .rating-container -->
 
                                     <div class="product-price">
-                                        ${{single_product.price}}
+                                        ₹{{single_product.price}}
                                     </div><!-- End .product-price -->
 
                                     <div class="product-content">
@@ -108,8 +108,6 @@
                                                 {% endfor %}
                                             </select>
                                         </div><!-- End .select-custom -->
-
-                                        <a href="#" class="size-guide"><i class="icon-th-list"></i>size guide</a>
                                     </div><!-- End .details-filter-row -->
 
                                     <div class="product-details-action">
@@ -125,17 +123,13 @@
                                         </div><!-- End .details-action-col -->
 
                                         <div class="details-action-wrapper">
-                                            <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></a>
-                                            <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to Compare</span></a>
+                                            <span>In stock : {{single_product.stock}}</span> 
                                         </div><!-- End .details-action-wrapper -->
                                     </div><!-- End .product-details-action -->
 
                                     <div class="product-details-footer details-footer-col">
                                         <div class="product-cat">
-                                            <span>Category:</span>
-                                            <a href="#">Women</a>,
-                                            <a href="#">Dresses</a>,
-                                            <a href="#">Yellow</a>
+                                            <span>Category : </span> <b>{{single_product.category}}</b>
                                         </div><!-- End .product-cat -->
 
                                         <div class="social-icons social-icons-sm">
@@ -234,11 +228,6 @@
                                                 <div class="review-content">
                                                     <p>{{i.review}}</p>
                                                 </div><!-- End .review-content -->
-
-                                                <div class="review-action">
-                                                    <a href="#"><i class="icon-thumbs-up"></i>Helpful (2)</a>
-                                                    <a href="#"><i class="icon-thumbs-down"></i>Unhelpful (0)</a>
-                                                </div><!-- End .review-action -->
                                             </div><!-- End .col-auto -->
                                         </div><!-- End .row -->
                                     </div><!-- End .review -->
@@ -285,8 +274,6 @@
                             </div><!-- .End .tab-pane -->
                         </div><!-- End .tab-content -->
                     </div><!-- End .product-details-tab -->
-
-                    <h2 class="title text-center mb-4">You May Also Like</h2><!-- End .title text-center -->
                     <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl" 
                         data-owl-options='{
                             "nav": false, 
@@ -472,69 +459,26 @@
                             <h4 class="widget-title">Related Product</h4><!-- End .widget-title -->
 
                             <div class="products">
+                                {% for p in products %}
                                 <div class="product product-sm">
                                     <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="{% static 'images/products/single/sidebar/1.jpg' %}" alt="Product image" class="product-image">
+                                        <a href="{{ p.get_url }}">
+                                            <img src="{{p.images.url}}" alt="Product image" class="product-image">
                                         </a>
                                     </figure>
 
                                     <div class="product-body">
-                                        <h5 class="product-title"><a href="product.html">Light brown studded Wide fit wedges</a></h5><!-- End .product-title -->
+                                        <h5 class="product-title"><a href="{{ p.get_url }}">{{p.product_name}}</a></h5><!-- End .product-title -->
                                         <div class="product-price">
-                                            <span class="new-price">$50.00</span>
-                                            <span class="old-price">$110.00</span>
+                                            <span class="old-price">₹{{p.price}}</span>
                                         </div><!-- End .product-price -->
                                     </div><!-- End .product-body -->
                                 </div><!-- End .product product-sm -->
-
-                                <div class="product product-sm">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="{% static 'images/products/single/sidebar/2.jpg' %}" alt="Product image" class="product-image">
-                                        </a>
-                                    </figure>
-
-                                    <div class="product-body">
-                                        <h5 class="product-title"><a href="product.html">Yellow button front tea top</a></h5><!-- End .product-title -->
-                                        <div class="product-price">
-                                            $56.00
-                                        </div><!-- End .product-price -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product product-sm -->
-
-                                <div class="product product-sm">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="{% static 'images/products/single/sidebar/3.jpg' %}" alt="Product image" class="product-image">
-                                        </a>
-                                    </figure>
-
-                                    <div class="product-body">
-                                        <h5 class="product-title"><a href="product.html">Beige metal hoop tote bag</a></h5><!-- End .product-title -->
-                                        <div class="product-price">
-                                            $50.00
-                                        </div><!-- End .product-price -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product product-sm -->
-
-                                <div class="product product-sm">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="{% static 'images/products/single/sidebar/4.jpg' %}" alt="Product image" class="product-image">
-                                        </a>
-                                    </figure>
-
-                                    <div class="product-body">
-                                        <h5 class="product-title"><a href="product.html">Black soft RI weekend travel bag</a></h5><!-- End .product-title -->
-                                        <div class="product-price">
-                                            $75.00
-                                        </div><!-- End .product-price -->
-                                    </div><!-- End .product-body -->
-                                </div><!-- End .product product-sm -->
+                                
+                                {% endfor %}
                             </div><!-- End .products -->
 
-                            <a href="category.html" class="btn btn-outline-dark-3"><span>View More Products</span><i class="icon-long-arrow-right"></i></a>
+                            <a href="{% url 'store' %}" class="btn btn-outline-dark-3"><span>View More Products</span><i class="icon-long-arrow-right"></i></a>
                         </div><!-- End .widget widget-products -->
 
                         <div class="widget widget-banner-sidebar">
