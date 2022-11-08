@@ -39,10 +39,10 @@ def register(request):
                 return redirect("register")
             elif Account.objects.filter(email=email).exists():
                 print("email-------------------")
-                messages.error(request,"Email taken")
+                messages.error(request,"This Email already exist")
                 return redirect("register")
             elif Account.objects.filter(phone_number=phone_number).exists():
-                messages.error(request,"Phone number exist")
+                messages.error(request,"This Phone number already exist")
                 return redirect("register")
             else:
                 user = Account.objects.create_user(

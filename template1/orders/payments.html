@@ -84,17 +84,18 @@
                           <img src="{{ cart_item.product.images.url }}" alt="Product image">
                         </a>
                       </figure>
-
+                    </div><!-- End .product -->
                       <h3 class="product-title">
                         <a href="{{ cart_item.product.get_url }}">{{ cart_item.product.product_name}}</a>
                       </h3><!-- End .product-title -->
+                   
                       <p>{% if cart_item.variation.all %}
                         {% for item in cart_item.variation.all %}
                           {{ item.variation_category | capfirst }} : {{ item.variation_value | capfirst }}<br>
                         {% endfor %}
                       {% endif %}
                      </p>
-                    </div><!-- End .product -->
+                  
                   </td>
                   <td class="price-col"><label for="">{{cart_item.quantity}}</label></td>
                  

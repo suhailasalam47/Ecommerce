@@ -9,6 +9,7 @@ import json
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.http import JsonResponse
+from django.views.decorators.cache import never_cache
 
 
 def order_completed(request, order, payment):
@@ -56,6 +57,7 @@ def order_completed(request, order, payment):
     send_email.send()
 
 
+@never_cache
 def payments(request):
     user = request.user
     body = json.loads(request.body)
@@ -84,6 +86,7 @@ def payments(request):
     return JsonResponse(data)
 
 
+@never_cache
 def place_order(request, total=0, quantity=0):
     current_user = request.user
     cart_items = CartItem.objects.filter(user=current_user)

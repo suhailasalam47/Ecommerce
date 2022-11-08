@@ -5,8 +5,6 @@ from django.contrib.auth.models import (
     PermissionsMixin,
 )
 
-# Create your models here.
-
 
 class MyAccountManager(BaseUserManager):
     # for creating normal user
