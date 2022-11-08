@@ -110,21 +110,27 @@
                                               ${{p.price}}
                                           </div><!-- End .product-price -->
                                           <div class="ratings-container">
-                                              <div class="ratings">
-                                                  <div class="ratings-val" style="width: 80%;"></div><!-- End .ratings-val -->
-                                              </div><!-- End .ratings -->
-                                              <span class="ratings-text">( 12 Reviews )</span>
+                                            <div class="rating-star">
+                                                <span>
+                                                    <i class="fa fa-star{% if p.average_review < 0.5 %}-o{% elif p.average_review >= 0.5 and p.average_review < 1 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                                    <i class="fa fa-star{% if p.average_review < 1.5 %}-o{% elif p.average_review >= 1.5 and p.average_review < 2 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                                    <i class="fa fa-star{% if p.average_review < 2.5 %}-o{% elif p.average_review >= 2.5 and p.average_review < 3 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                                    <i class="fa fa-star{% if p.average_review < 3.5 %}-o{% elif p.average_review >= 3.5 and p.average_review < 4 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                                    <i class="fa fa-star{% if p.average_review < 4.5 %}-o{% elif p.average_review >= 4.5 and p.average_review < 5 %}-half-o {% endif %}" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+                                              <span class="ratings-text">( {{p.count_review}} Reviews )</span>
                                           </div><!-- End .rating-container -->
                                       </div><!-- End .product-body -->
                                   </div><!-- End .product -->
                               </div><!-- End .col-sm-6 col-md-4 col-xl-3 -->
 
-       {% endfor %}
-       {% else %}  
-         <div>
-             <h5>No result found. Please try again.</h5>
-         </div>
-       {% endif %} 
+                        {% endfor %}
+                        {% else %}  
+                            <div>
+                                <h5>No result found. Please try again.</h5>
+                            </div>
+                        {% endif %} 
           
                           </div><!-- End .row -->
                       </div><!-- End .products -->

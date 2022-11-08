@@ -34,7 +34,7 @@ def store(request, category_slug=None):
         page = request.GET.get("page")
         paged_product = paginator.get_page(page)
         product_count = products.count()
-
+    
     context = {
         "products": paged_product,
         "product_count": product_count,
