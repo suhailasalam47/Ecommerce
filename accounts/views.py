@@ -33,7 +33,7 @@ def register(request):
             password = form.cleaned_data["password"]
             username = email.split("@")[0]
             confirm_passwrd = form.cleaned_data["confirm_password"]
-            
+            print("email----", email)
             if password!=confirm_passwrd:
                 messages.error(request,"Password not matching")
                 return redirect("register")
