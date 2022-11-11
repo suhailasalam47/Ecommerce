@@ -1,4 +1,3 @@
-import imp
 from cart.views import _cart_id
 from django.shortcuts import get_object_or_404, render, redirect
 from cart.models import CartItem
@@ -10,7 +9,6 @@ from django.db.models import Q
 from .forms import ReviewRatingForm
 from django.contrib import messages
 from orders.models import OrderProduct
-# Create your views here.
 
 
 def store(request, category_slug=None):

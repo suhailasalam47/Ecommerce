@@ -90,19 +90,20 @@ def register(request):
 
 
 def login(request):
-    if request.user.is_authenticated:
-        return redirect('dashboard')
     if request.method == "POST":
         email = request.POST["email"]
         password = request.POST["password"]
 
         user = auth.authenticate(email=email, password=password)
+        print(user)
 
         if user is not None:
             try:
                 cart = Cart.objects.get(cart_id=_cart_id(request))
-                is_cart_item_exist = CartItem.objects.filter(cart=cart).exists()
-                
+                is_cart_item_exist = CartItem.objects.filter(
+                    cart=cart
+                ).exists()
+                print(is_cart_item_exist)
                 if is_cart_item_exist:
                     cart_item = CartItem.objects.filter(cart=cart)
 
@@ -132,7 +133,7 @@ def login(request):
                             for item in cart_item:
                                 item.user = user
                                 item.save()
-            except Cart.DoesNotExist:
+            except:
                 pass
 
             auth.login(request, user)

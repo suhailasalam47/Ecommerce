@@ -45,23 +45,26 @@
                                 {% for cart_item in cart_items %}   
                                 <tr>
                                     <td class="product-col">
-                                        <div class="product">
+                                        <div class="product row">
+                                            <div class="col-lg-3">
                                             <figure class="product-media">
-                                                <a href="#">
+                                                <a href="{{ cart_item.product.get_url }}">
                                                     <img src="{{ cart_item.product.images.url }}" alt="Product image">
                                                 </a>
                                             </figure>
-                                            
+                                        </div>
+                                        <div class="col-lg-8">
                                             <h3 class="product-title">
                                                 <a href="{{ cart_item.product.get_url }}">{{ cart_item.product.product_name}}</a><br>
-                                            </h3></div><!-- End .product-title --> 
+                                            </h3>
                                             <p>{% if cart_item.variation.all %}
                                                 {% for item in cart_item.variation.all %}
                                                   {{ item.variation_category | capfirst }} : {{ item.variation_value | capfirst }}<br>
                                                 {% endfor %}
                                               {% endif %}
                                              </p>
-                                        <!-- End .product -->
+                                            </div>
+                                            </div><!-- End .product-title --> 
                                     </td>
                                     <td class="price-col">${{cart_item.product.price}}
                                     </td>
