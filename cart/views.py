@@ -21,6 +21,7 @@ def add_cart(request, product_id):
         product_variation = []
 
         if request.method == "POST":
+            print(request.POST['color'])
             for item in request.POST:
                 key = item
                 value = request.POST[key]
