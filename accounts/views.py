@@ -89,7 +89,10 @@ def register(request):
     return render(request, "accounts/register.html", context)
 
 
+
 def login(request):
+    if request.user.is_authenticated:
+        return redirect("/")
     if request.method == "POST":
         email = request.POST["email"]
         password = request.POST["password"]
