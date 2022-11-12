@@ -17,6 +17,7 @@
                         <li><strong>Transaction id</strong> #{{order.Payment.Payment_id}}</li>
                         <li><strong>Order Date:</strong> {{order.created_at}}</li>
                         <li><strong>Status:</strong> {{order.Payment.status}}</li>
+                        <li><strong>Payment method :</strong>  {{order.Payment.Payment_method}}</li>
                     </ul>
                     </div>
                   </div>
@@ -30,6 +31,7 @@
                         <li>{{order.full_address}}</li>
                         <li>{{order.city}},{{order.state}}</li>
                         <li>{{order.country}}</li>
+                        <li>{{order.phone}}</li>
                     </ul>
                     </div>
                   </div>
