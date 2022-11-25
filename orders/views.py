@@ -91,6 +91,7 @@ def place_order(request, total=0, quantity=0):
     current_user = request.user
     cart_items = CartItem.objects.filter(user=current_user)
     item_count = cart_items.count()
+    
 
     if item_count <= 0:
         return redirect("store")
